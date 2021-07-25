@@ -1,0 +1,142 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  BACKEND:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2     
+      
+      - name: Docker Login
+        uses: docker/login-action@v1.9.0
+        with:
+          username: ${{secrets.DOCKERHUB_USER}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: true
+          tags: |
+            israelbuiatti/ms-backend:latest
+            israelbuiatti/ms-backend:${{github.run_number}}      
+      
+      
+
+      # - name: Deploy to Heroku
+      #   uses: AkhileshNS/heroku-deploy@v3.12.12
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_email: israelbuiatti@gmail.com
+      #     heroku_app_name: buiatti-ms-backend
+      #     usedocker: true
+      #     appdir: backend
+          
+          
+  # This workflow contains a single job called "build"
+  FRONTEND-PHP:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2     
+      
+      
+      - name: Docker Login
+        uses: docker/login-action@v1.9.0
+        with:
+          username: ${{secrets.DOCKERHUB_USER}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: ./frontend-php
+          file: ./frontend-php/Dockerfile
+          push: true
+          tags: |
+            israelbuiatti/ms-frontend:latest
+            israelbuiatti/ms-frontend:${{github.run_number}}     
+            
+
+      # - name: Deploy to Heroku
+      #   uses: AkhileshNS/heroku-deploy@v3.12.12
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_email: israelbuiatti@gmail.com
+      #     heroku_app_name: buiatti-ms-frontend-php
+      #     usedocker: true
+      #     appdir: frontend-php         
+
+
+  CONSULTA-CEP:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      
+      - name: Docker Login
+        uses: docker/login-action@v1.9.0
+        with:
+          username: ${{secrets.DOCKERHUB_USER}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: ./consulta-cep
+          file: ./consulta-cep/Dockerfile
+          push: true
+          tags: |
+            israelbuiatti/consulta-cep:latest
+            israelbuiatti/consulta-cep:${{github.run_number}}         
+
+
+      # - name: Deploy to Heroku
+      #   uses: AkhileshNS/heroku-deploy@v3.12.12
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_email: israelbuiatti@gmail.com
+      #     heroku_app_name: buiatti-ms-consulta-cep
+      #     usedocker: true
+      #     appdir: consulta-cep          
+
+
+  # ACL:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: actions/checkout@v2     
+
+  #     - name: Deploy to Heroku
+  #       uses: AkhileshNS/heroku-deploy@v3.12.12
+  #       with:
+  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #         heroku_email: israelbuiatti@gmail.com
+  #         heroku_app_name: buiatti-ms-acl
+  #         usedocker: true
+  #         appdir: acl              
+  #  https://faun.pub/continuous-integration-of-java-project-with-github-actions-7a8a0e8246ef         

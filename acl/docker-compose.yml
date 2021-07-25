@@ -1,6 +1,13 @@
 version: '3'
 services:
- docker-app:
-    image: israelbuiatti/acl-app
+ acl:
+    image: israelbuiatti/acl
+    container_name: acl
     ports:
-      - "8090:8080"
+      - "8090:8081"
+    environment:
+      - DATABASE_HOST=buiatte.com.br
+      - DATABASE_PORT=55433
+      - DATABASE_DB=postgres
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=password

@@ -1,0 +1,13 @@
+version: '3'
+services:
+ acl:
+    image: israelbuiatti/acl
+    container_name: acl
+    ports:
+      - "8090:8081"
+    environment:
+      - DATABASE_HOST=
+      - DATABASE_PORT=
+      - DATABASE_DB=
+      - DATABASE_USER=
+      - DATABASE_PASSWORD=

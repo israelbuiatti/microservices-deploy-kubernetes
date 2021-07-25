@@ -1,0 +1,13 @@
+version: '3.7'
+services: 
+  ms-faturamento-frontend:
+    build: .
+    container_name: 'ms-faturamento-frontend'
+    ports:
+      - 90:80
+    volumes:
+      - ./www:/var/www/html
+    environment:
+      - URL_API=
+      - URL_API_CONSULTA_CEP=
+      - URL_API_ACL=

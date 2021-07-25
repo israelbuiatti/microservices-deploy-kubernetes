@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  app:
+    container_name: ms-consulta-cep
+    build: .
+    ports:
+      - "3334:5000"
+    command: npm start
+    environment:
+      - NODE_ENV=
+      - DB_HOST=
+      - DB_USER=
+      - DB_PASSWORD=
+      - DB_DATABASE=
+      - DB_PORT=
+      - DB_SSL=
+      - REDIS_HOST=
+      - REDIS_PORT=
+      - APP_SECRET=
