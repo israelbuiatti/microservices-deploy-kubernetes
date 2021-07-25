@@ -1,9 +1,9 @@
 <?php include("cima.php") ?>
-<script src="scripts/controllers/PedidoCtrl.js"></script>
+<script src="scripts/controllers/IndexCtrl.js"></script>
 
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper" ng-controller="PedidoCtrl">
+<div class="content-wrapper" ng-controller="IndexCtrl">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>

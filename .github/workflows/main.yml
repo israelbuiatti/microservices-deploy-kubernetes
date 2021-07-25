@@ -21,6 +21,7 @@ jobs:
           username: ${{secrets.DOCKERHUB_USER}}
           password: ${{secrets.DOCKERHUB_PASSWORD}}
 
+      # VENDA
       - name: Build and push Docker images - VENDA BACKEND
         uses: docker/build-push-action@v2.4.0
         with:
@@ -37,6 +38,71 @@ jobs:
           file: ./venda/frontend/Dockerfile
           push: true
           tags: |
-            israelbuiatti/ms-venda-frontend:latest            
+            israelbuiatti/ms-venda-frontend:latest         
+            
+      # CEP      
+      - name: Build and push Docker images - CEP BACKEND
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: ./cep/backend
+          file: ./cep/backend/Dockerfile
+          push: true
+          tags: |
+            israelbuiatti/ms-consulta-cep:latest        
+
+      # ESTOQUE
+      - name: Build and push Docker images - ESTOQUE FRONTEND
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: ./estoque/frontend
+          file: ./estoque/frontend/Dockerfile
+          push: true
+          tags: |
+            israelbuiatti/ms-estoque-frontend:latest        
+
+      - name: Build and push Docker images - ESTOQUE BACKEND
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: ./estoque/backend
+          file: ./estoque/backend/Dockerfile
+          push: true
+          tags: |
+            israelbuiatti/ms-estoque-backend:latest                             
       
-      
+      # FATURAMENTO
+      - name: Build and push Docker images - FATURAMENTO BACKEND
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: ./faturamento/frontend
+          file: ./faturamento/frontend/Dockerfile
+          push: true
+          tags: |
+            israelbuiatti/ms-faturamento-fronttned:latest        
+
+      - name: Build and push Docker images - FATURAMENTO BACKEND
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: ./faturamento/backend
+          file: ./faturamento/backend/Dockerfile
+          push: true
+          tags: |
+            israelbuiatti/ms-faturamento-backend:latest      
+
+      # CAIXA
+      - name: Build and push Docker images - CAIXA BACKEND
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: ./caixa/frontend
+          file: ./caixa/frontend/Dockerfile
+          push: true
+          tags: |
+            israelbuiatti/ms-caixa-fronttned:latest        
+
+      - name: Build and push Docker images - CAIXA BACKEND
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: ./caixa/backend
+          file: ./caixa/backend/Dockerfile
+          push: true
+          tags: |
+            israelbuiatti/ms-caixa-backend:latest                         
