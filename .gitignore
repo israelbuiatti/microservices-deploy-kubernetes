@@ -1,6 +1,4 @@
 **/docker-compose.yml
-**/.env
-**/node_modules
 
 .k8s
 .docker
