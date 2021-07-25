@@ -44,8 +44,8 @@ jobs:
       - name: Build and push Docker images - CEP BACKEND
         uses: docker/build-push-action@v2.4.0
         with:
-          context: ./cep/backend
-          file: ./cep/backend/Dockerfile
+          context: ./cep
+          file: ./cep/Dockerfile
           push: true
           tags: |
             israelbuiatti/ms-consulta-cep:latest        
