@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers(HttpMethod.POST, "/api/login");
 		web.ignoring().antMatchers(HttpMethod.GET, "/api/menu");
+		web.ignoring().antMatchers(HttpMethod.GET, "/api/servicos");
 		
 		web.ignoring().antMatchers(
 				"/v2/api-docs",

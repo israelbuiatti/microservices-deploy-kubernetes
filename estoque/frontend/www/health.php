@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+header("HTTP/1.1 200 OK");
 
 $json['app'] = "ms-estoque-frontend";
 $json['version'] = 1.0;
