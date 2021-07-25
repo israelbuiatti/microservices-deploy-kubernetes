@@ -64,6 +64,13 @@ angular.module('admin').controller('IndexCtrl', ["$scope", "$http", function ($s
 		status: null
 	});
 
+	//ACL
+	$scope.listaServicos.push({
+		servico: "acl",
+		url: "http://acl.k8s.buiatte.com.br/api/health",
+		status: null
+	});
+
 
 
 	this.$onInit = () => {

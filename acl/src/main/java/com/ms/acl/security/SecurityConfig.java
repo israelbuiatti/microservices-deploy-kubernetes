@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers(HttpMethod.POST, "/api/login");
 		web.ignoring().antMatchers(HttpMethod.GET, "/api/menu");
 		web.ignoring().antMatchers(HttpMethod.GET, "/api/servicos");
+		web.ignoring().antMatchers(HttpMethod.GET, "/api/health");
 		
 		web.ignoring().antMatchers(
 				"/v2/api-docs",
@@ -64,4 +65,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		return super.authenticationManagerBean();
 	}
+
 }
