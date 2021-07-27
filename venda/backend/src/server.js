@@ -30,7 +30,12 @@ console.log("=== TOKEN:", tokenx);
 console.log("==========================");
 
 const app = express();
-//app.use(rateLimiter);
+
+const config = require('./config/system-life');
+app.use(config.middlewares.healthMid);
+app.use('/', config.routers);
+
+app.use(rateLimiter);
 
 app.use(cors());
 

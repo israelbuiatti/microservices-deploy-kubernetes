@@ -5,13 +5,11 @@ class VendedorRepository extends BaseRepository {
     table = 'vendedor';
 
     async findAll() {
-        console.log("entrou1");
         const results = await this.db().where('flg_telemarketing', false).orderBy('nome');
         return results;
     }
 
     async findAllTelemarketing() {
-        console.log("entrou2");
         const results = await this.db().where('flg_telemarketing', true).orderBy('nome');
         return results;
     }

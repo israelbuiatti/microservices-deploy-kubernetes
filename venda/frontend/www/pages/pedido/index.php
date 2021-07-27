@@ -36,7 +36,7 @@
 
 		<?php include("pedidoItem.php") ?>
 
-		<?php //include("baixa.php") ?>
+		<?php include("baixa.php") ?>
 
 
 		<script>

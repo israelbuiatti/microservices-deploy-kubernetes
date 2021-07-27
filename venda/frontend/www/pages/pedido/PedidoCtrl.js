@@ -31,6 +31,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.fornecedor = {};
 		$scope.baixa = {};
 		$scope.pItem = {};
+		$scope.pedidoBaixa = {};
 		$scope.produto = {};
 		$scope.cliente = {};
 		$scope.itens = [];
@@ -181,6 +182,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.pedido = angular.copy(item);
 		$scope.cliente.nome_razao = $scope.pedido.nome_razao;
 		$scope.getListaPedidoItem();
+		$scope.getPedidoBaixa();
 		$scope.carregaFornecedor();
 	}
 
@@ -226,7 +228,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			}, (error) => {
 				console.log('Ocorreu um erro!');
 			})
-			.finally(() => loadingOff());;
+			.finally(() => loadingOff());
 	}
 
 
@@ -335,7 +337,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 				}, (error) => {
 					console.log('Ocorreu um erro!');
 				})
-				.finally(() => loadingOff());;
+				.finally(() => loadingOff());
 
 		}
 		else {
@@ -382,7 +384,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			}, (error) => {
 				console.log('Ocorreu um erro!');
 			})
-			.finally(() => loadingOff());;
+			.finally(() => loadingOff());
 	}
 
 	//---------------------------------
@@ -390,29 +392,65 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	//---------------------------------
 
 	$scope.baixar = function () {
-		$scope.pedido.data_baixado = $('#data_baixado').val();
-		if ($scope.isEmpty($scope.pedido.nf_baixado)) {
+
+		$scope.pedidoBaixaForm.data = $('#data_baixado').val();
+		if ($scope.isEmpty($scope.pedidoBaixaForm.nf)) {
 			alert('Campo NF obrigatório!');
 			return;
 		}
-		if ($scope.isEmpty($scope.pedido.data_baixado)) {
+		if ($scope.isEmpty($scope.pedidoBaixaForm.data)) {
 			alert('Campo Data obrigatório!');
 			return;
 		}
-		if ($scope.isEmpty($scope.pedido.valor_baixado)) {
+		if ($scope.isEmpty($scope.pedidoBaixaForm.valor)) {
 			alert('Campo Valor obrigatório!');
 			return;
 		}
 
-		loadingOn();
-		$http({ method: 'POST', url: URL_API + 'services/baixa', data: { pedidox: $scope.pedido } }).then(function successCallback(response) {
-			alert('Pedido baixado com sucesso!');
-			$scope.pItem = {};
-			loadingOff();
-		}, function errorCallback(response) {
-			console.log('Ocorreu um erro!');
-		});
+		$scope.pedidoBaixaForm.id_pedido = $scope.pedido.id;
 
+		loadingOn();
+
+		$http({ method: 'POST', url: URL_API + 'pedidoBaixa/', data: $scope.pedidoBaixaForm })
+			.then((response) => {
+				$scope.getPedidoBaixa();
+				alert('Pedido baixado com sucesso!');
+				$scope.pedidoBaixaForm = {};
+			}, (error) => {
+				console.log('Ocorreu um erro!');
+			})
+			.finally(() => loadingOff());
+
+	}
+
+	$scope.getPedidoBaixa = () => {
+
+		loadingOn();
+		$http({ method: 'GET', url: URL_API + 'pedidoBaixa/' + $scope.pedido.id })
+			.then(
+				(response) => {
+					$scope.pedidoBaixa = response.data;
+					$scope.pedidoBaixa.data = moment($scope.pedidoBaixa.data).format('DD/MM/yyyy');
+				},
+				(error) => alert(error.data.message)
+			)
+			.finally(() => loadingOff());
+	}
+
+	$scope.excluirBaixa = () => {
+
+		if (!confirm("Confirma exclusão?")) {
+			return;
+		}
+
+		loadingOn();
+		$http({ method: 'DELETE', url: URL_API + 'pedidoBaixa/' + $scope.pedido.id })
+			.then((response) => {
+				$scope.pedidoBaixa = {};
+			}, (error) => {
+				console.log('Ocorreu um erro!');
+			})
+			.finally(() => loadingOff());
 	}
 
 			

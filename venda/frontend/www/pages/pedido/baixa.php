@@ -12,29 +12,45 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group" ng-show="!pedidoBaixa.nf">
 			<div class="col-sm-2">
 				<label>NF</label>
-				<input class="form-control" ng-model="pedido.nf_baixado" type="text" style="width:100px">
+				<input class="form-control" ng-model="pedidoBaixaForm.nf" type="text" style="width:100px">
 			</div>
 
 			<div class="col-sm-2">
 				<label>Data</label>
-				<input ng-model="pedido.data_baixado" class="form-control date" id='data_baixado' style="width:100px" />
+				<input ng-model="pedidoBaixaForm.data" class="form-control date" id='data_baixado' style="width:100px" />
 			</div>
 
 			<div class="col-sm-2">
 				<label>Valor</label>
-				<input class="form-control moeda" type="text" ng-model="pedido.valor_baixado" style="width:100px">
+				<input class="form-control moeda" type="text" ng-model="pedidoBaixaForm.valor" style="width:100px">
 			</div>
 
-		</div>
-
-		<div class="form-group">
-			<div class="col-sm-12" style="margin-top:20px; text-align:center">
+			<div class="col-sm-2" style="height: 60px;margin-top: 25px;">
 				<button type="submit" class="btn btn-primary" ng-click="baixar()">Baixar</button>
 			</div>
+
 		</div>
+
+
+		<table class="table">
+			<tr>
+				<th class="text-center"> NF </th>
+				<th class="text-center"> Data </th>
+				<th class="text-center"> Valor </th>
+				<th class="text-center"> </th>
+			</tr>
+			<tr ng-if="pedidoBaixa.nf">
+				<td class="text-center"> {{pedidoBaixa.nf}} </td>
+				<td class="text-center"> {{pedidoBaixa.data}} </td>
+				<td class="text-center"> {{pedidoBaixa.valor | currency:'R$'}} </td>
+				<td>
+					<button type="button" class="btn btn-sm" ng-click="excluirBaixa()" title="Excluir Baixa"><i class="fa fa-times"></i></button>
+				</td>
+			</tr>
+		</table>
 
 
 

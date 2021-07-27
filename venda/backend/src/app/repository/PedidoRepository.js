@@ -44,8 +44,6 @@ class PedidoRepository extends BaseRepository {
 
         await this.findById(id);
 
-        console.log(pedido);
-
         const result = await this.db()
             .where({ id })
             .update(pedido);
