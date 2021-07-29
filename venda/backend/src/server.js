@@ -35,7 +35,7 @@ const config = require('./config/system-life');
 app.use(config.middlewares.healthMid);
 app.use('/', config.routers);
 
-app.use(rateLimiter);
+//app.use(rateLimiter);
 
 app.use(cors());
 

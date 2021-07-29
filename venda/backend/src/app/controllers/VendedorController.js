@@ -11,12 +11,12 @@ export default class VendedorController {
 	async list(req, res) {
 
 		const telemarketing = req.query.telemarketing;
-
-		console.log(telemarketing);
+		const vendedor = req.query.vendedor;
 
 		let results;
 
 		if (telemarketing) results = await this.vendedorService.findAllTelemarketing();
+		else if (vendedor) results = await this.vendedorService.findAllVendedor();
 		else results = await this.vendedorService.findAll();
 		
 		return res.json(results);

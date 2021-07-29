@@ -10,6 +10,7 @@ import fornecedorRouter from './fornecedor'
 import vendedorRouter from './vendedor'
 import regiaoRouter from './regiao'
 import cidadeRouter from './cidade'
+import comissaoRouter from './comissao'
 
 const routes = Router();
 
@@ -31,5 +32,6 @@ routes.use('/pedidoItem', pedidoItemRouter);
 routes.use('/pedidoBaixa', pedidoBaixaRouter);
 routes.use('/regiao', regiaoRouter);
 routes.use('/cidade', cidadeRouter);
+routes.use('/comissao', comissaoRouter);
 
 export default routes;

@@ -17,6 +17,11 @@ class VendedorService {
         return results;
     }
 
+    async findAllVendedor() {
+        const results = await this.repository.findAllVendedor();
+        return results;
+    }
+
     async findAllTelemarketing() {
         const results = await this.repository.findAllTelemarketing();
         return results;

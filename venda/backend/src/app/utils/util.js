@@ -17,7 +17,7 @@ export default {
         value = value.toString();
         value = value.split(".").join("");
         value = value.split(",").join(".");
-        return value;
+        return parseFloat(value);
     }
 
 }

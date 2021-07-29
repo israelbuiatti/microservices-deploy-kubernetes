@@ -54,7 +54,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	$scope.getListaVendedor = () => {
 
 		loadingOn();
-		$http({ method: 'GET', url: URL_API + 'vendedor' })
+		$http({ method: 'GET', url: URL_API + 'vendedor?vendedor=true' })
 			.then(
 				(response) => {
 					$scope.listaVendedor = response.data;
@@ -124,8 +124,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 				$scope.pedido.id = response.data.id;
 			
 			}, (error) => {
-				console.log('Ocorreu um erro!');
-				alert(error.data);
+				alert(error.data.message);
 			})
 			.finally(() => loadingOff());
 		
@@ -146,8 +145,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 				$scope.pedido.id = response.data.id;
 
 			}, (error) => {
-				console.log('Ocorreu um erro!');
-				alert(error.data);
+				alert(error.data.message);
 			})
 			.finally(() => loadingOff());
 
@@ -162,7 +160,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 				//$scope.fornecedor.comissao_vend = ($scope.fornecedor.comissao_vend*100)+'%';
 				
 			}, (error) => {
-				console.log('Ocorreu um erro!');
+				alert(error.data.message);
 			});
 	}
 	
@@ -203,7 +201,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 					$scope.listaPedido = response.data 
 
 					$scope.listaPedido.forEach(value => {
-						value.data = moment(value.data).format('DD/MM/yyyy');
+						value.data = moment(value.data).add(1, 'days').format('DD/MM/yyyy');
 					})
 
 
@@ -226,7 +224,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			.then((response) => {
 				$scope.buscar();
 			}, (error) => {
-				console.log('Ocorreu um erro!');
+				alert(error.data.message);
 			})
 			.finally(() => loadingOff());
 	}
@@ -286,7 +284,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 				.then((response) => {
 					$scope.produtos = response.data;
 				}, (error) => {
-					console.log('Ocorreu um erro!');
+					alert(error.data.message);
 				})
 				.finally(() => loadingOff());
 		}
@@ -335,7 +333,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 					$scope.pItem = {};
 					calculaValorTotalPedido();
 				}, (error) => {
-					console.log('Ocorreu um erro!');
+					alert(error.data.message);
 				})
 				.finally(() => loadingOff());
 
@@ -382,7 +380,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			.then((response) => {
 				$scope.getListaPedidoItem();
 			}, (error) => {
-				console.log('Ocorreu um erro!');
+				alert(error.data.message);
 			})
 			.finally(() => loadingOff());
 	}
@@ -417,7 +415,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 				alert('Pedido baixado com sucesso!');
 				$scope.pedidoBaixaForm = {};
 			}, (error) => {
-				console.log('Ocorreu um erro!');
+				alert(error.data.message);
 			})
 			.finally(() => loadingOff());
 
@@ -430,7 +428,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			.then(
 				(response) => {
 					$scope.pedidoBaixa = response.data;
-					$scope.pedidoBaixa.data = moment($scope.pedidoBaixa.data).format('DD/MM/yyyy');
+					$scope.pedidoBaixa.data = moment($scope.pedidoBaixa.data).add(1, 'days').format('DD/MM/yyyy');
 				},
 				(error) => alert(error.data.message)
 			)
@@ -448,7 +446,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			.then((response) => {
 				$scope.pedidoBaixa = {};
 			}, (error) => {
-				console.log('Ocorreu um erro!');
+				alert(error.data.message);
 			})
 			.finally(() => loadingOff());
 	}

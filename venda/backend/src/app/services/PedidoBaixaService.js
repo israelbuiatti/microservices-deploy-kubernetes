@@ -1,4 +1,6 @@
 import PedidoBaixaRepository from '../repository/PedidoBaixaRepository'
+import PedidoRepository from '../repository/PedidoRepository'
+import FornecedorRepository from '../repository/FornecedorRepository'
 import AppError from '../exception/AppError';
 import UTIL from '../utils/util';
 
@@ -6,6 +8,8 @@ class PedidoBaixaService {
 
     constructor() {
         this.repository = new PedidoBaixaRepository();
+        this.repositoryPedido = new PedidoRepository();
+        this.repositoryFornecedor = new FornecedorRepository();
     }
 
     async findByPedido(id) {
@@ -15,8 +19,31 @@ class PedidoBaixaService {
 
     async insert(pedidoBaixa) {
 
+        console.log(pedidoBaixa);
+
+        const pedido = await this.repositoryPedido.findById(pedidoBaixa.id_pedido);
+        const fornecedor = await this.repositoryFornecedor.findById(pedido.id_fornecedor);
+        
+
         pedidoBaixa.valor = UTIL.moedaToUS(pedidoBaixa.valor);
         pedidoBaixa.data = UTIL.reformatDate(pedidoBaixa.data);
+
+        console.log('pedido', pedido);
+        console.log('pedido.valor', pedido.valor);
+        console.log('pedidoBaixa.valor', pedidoBaixa.valor);
+        
+
+        if (pedidoBaixa.valor > pedido.valor) {
+            throw new AppError("Valor da baixa não pode ser maior que o valor do pedido!");
+        }
+
+        
+        pedidoBaixa.comissao_vend = fornecedor.comissao_vend * pedidoBaixa.valor / 100;
+
+        if (pedido.id_vendedor_tel) {
+            pedidoBaixa.comissao_tel = fornecedor.comissao_tel * pedidoBaixa.valor / 100;
+        }
+        
 
         this.validarPedidoBaixa(pedidoBaixa);
        

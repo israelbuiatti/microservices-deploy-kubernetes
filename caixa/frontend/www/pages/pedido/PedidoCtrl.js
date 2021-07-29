@@ -53,7 +53,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	$scope.getListaVendedor = () => {
 
 		loadingOn();
-		$http({ method: 'GET', url: URL_API + 'vendedor' })
+		$http({ method: 'GET', url: URL_API + 'vendedor?vendedor=true' })
 			.then(
 				(response) => {
 					$scope.listaVendedor = response.data;

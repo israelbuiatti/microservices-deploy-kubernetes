@@ -21,23 +21,37 @@ class PedidoItemService {
         pedidoItem.valor_unitario = UTIL.moedaToUS(pedidoItem.valor_unitario);
 
         this.validarPedidoItem(pedidoItem);
-
-        let pedido = await this.repositoryPedido.findById(pedidoItem.id_pedido);
-        pedido.valor = pedidoItem.quantidade * pedidoItem.valor_unitario;
-        await this.repositoryPedido.update(pedido);
         
         const result = await this.repository.insert(pedidoItem);
+
+        await this.calcularValorPedido(pedidoItem.id_pedido);
 
         return result;
     }
 
     async delete(id) {
-        await this.repository.findById(id);
+        const pedidoItem = await this.repository.findById(id);
         await this.repository.delete(id);
+        await this.calcularValorPedido(pedidoItem.id_pedido);
     }
 
     validarPedidoItem(pedido) {
         //if (!pedido.id_cliente) throw new AppError("Campo Cliente obrigatório!");
+    }
+
+    async calcularValorPedido(id) {
+
+        const lista = await this.repository.findByPedido(id);
+
+        let total = 0;
+        lista.forEach(item => {
+            total += item.quantidade*item.valor_unitario;
+        });
+
+        let pedido = await this.repositoryPedido.findById(id);
+        pedido.valor = total;
+        await this.repositoryPedido.update(pedido);
+
     }
 
 
