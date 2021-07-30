@@ -8,7 +8,7 @@ else
 $_PROTOCOL = "http";
 
 $URL_BASE = $_PROTOCOL."://".$_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'];
-if (!$_SESSION['ms_admin_usuario']) print "<script language='JavaScript'>location.href='". $URL_BASE."/login.php'</script>";
+//if (!$_SESSION['ms_admin_usuario']) print "<script language='JavaScript'>location.href='". $URL_BASE."/login.php'</script>";
 ?>
 <!DOCTYPE html>
 <html>
