@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("./version.php");
 
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
 	$_PROTOCOL = "https";
