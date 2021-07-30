@@ -8,7 +8,7 @@ $lista_menu = json_decode($json_data);
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
 
-	<div style="color: #ececec;text-align: center;position: absolute;bottom: 10px;width: 100%;">ms-faturamento-frontend - v1.0</div>
+	<div style="color: #ececec;text-align: center;position: absolute;bottom: 10px;width: 100%;"> <?= $json_version['app'] ?> - v<?= $json_version['version'] ?></div>
 
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
