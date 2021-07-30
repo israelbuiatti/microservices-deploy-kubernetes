@@ -15,7 +15,7 @@ import comissaoRouter from './comissao'
 const routes = Router();
 
 const health = {
-    app: "venda",
+    app: "ms-venda-backend",
     version: "1.0",    
     status: true,
     hostname: os.hostname()

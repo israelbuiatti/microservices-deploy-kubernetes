@@ -4,7 +4,7 @@ import os from 'os';
 const routes = Router();
 
 const health = {
-    app: "faturamento",
+    app: "ms-faturamento-backend",
     version: "1.0",
     status: true,
     hostname: os.hostname()

@@ -4,7 +4,7 @@ import os from 'os';
 const routes = Router();
 
 const health = {
-    app: "caixa",
+    app: "ms-caixa-backend",
     version: "1.0",
     status: true,
     hostname: os.hostname()

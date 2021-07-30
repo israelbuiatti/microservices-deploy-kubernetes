@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class HealthDTO {
 
-	private String app = "acl";
+	private String app = "acl-backend";
 	private String version = "1.0";
 	private Boolean status = true;
 
