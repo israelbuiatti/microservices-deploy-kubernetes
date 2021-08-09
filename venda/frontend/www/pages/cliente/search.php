@@ -9,8 +9,13 @@
 				<label>CNPJ</label>
 				<input class="form-control" placeholder="Digite o CNPJ" ng-model="busca.cnpj">
 			</div>
+			<div class="form-group">
+				<label>Cidade</label>
+				<select class="form-control" ng-options="item.id as item.descricao for item in listaCidades" ng-model="busca.cidade">
+					<option value=""> - Selecione - </option>
+				</select>
+			</div>
 		</div>
-
 		<div class="box-footer">
 			<button type="submit" class="btn btn-primary" ng-click="buscar()">Buscar</button>
 		</div>

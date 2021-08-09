@@ -20,6 +20,7 @@ angular.module('admin').controller('ComissaoCtrl', ["$scope", "$http", function 
 		$scope.state = "search";
 		$scope.pedido = {};
 		$scope.total = {};
+		$scope.comissao = null;
 		$scope.getListaFornecedor();
 		$scope.getListaVendedor();
 		$scope.buscar();
@@ -74,14 +75,19 @@ angular.module('admin').controller('ComissaoCtrl', ["$scope", "$http", function 
 			.then(
 				(response) => { 
 					
-					$scope.listaPedido = response.data 
+					$scope.listaPedido = response.data.lista;
+
+					$scope.comissao = response.data.comissao;
 
 					$scope.total.valor = 0;
+					$scope.total.valor_baixado = 0;
 					$scope.total.comissao = 0;
 
 					$scope.listaPedido.forEach(value => {
 						value.data = moment(value.data).add(1, 'days').format('DD/MM/yyyy');
+						value.porcentagem = value.comissao / value.valor_baixado * 100;
 						$scope.total.valor += value.valor;
+						$scope.total.valor_baixado += value.valor_baixado;
 						$scope.total.comissao += value.comissao;
 					})
 
@@ -91,6 +97,14 @@ angular.module('admin').controller('ComissaoCtrl', ["$scope", "$http", function 
 			)
 			.finally(() => loadingOff());
 
+	}
+
+	$scope.changeData1 = () => {
+		$scope.pedido.data1 = $('#data1').val();
+	}
+
+	$scope.changeData2 = () => {
+		$scope.pedido.data2 = $('#data2').val();
 	}
 
 			

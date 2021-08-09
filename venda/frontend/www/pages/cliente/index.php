@@ -1,5 +1,5 @@
 <?php include("../../cima.php") ?>
-<script src="/pages/cliente/ClienteCtrl.js"></script>
+<script src="/pages/cliente/ClienteCtrl.js?v=<?= time() ?>"></script>
 
 
 <div class="content-wrapper" ng-controller="ClienteCtrl">

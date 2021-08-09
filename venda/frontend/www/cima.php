@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("./version.php");
+include("version.php");
 
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
 	$_PROTOCOL = "https";
@@ -29,10 +29,10 @@ if (!$_SESSION['ms_admin_usuario']) print "<script language='JavaScript'>locatio
 	<!-- DataTables -->
 	<link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css">
 	<!-- Theme style -->
-	<link rel="stylesheet" href="/dist/css/AdminLTE.css">
+	<link rel="stylesheet" href="/dist/css/AdminLTE.css?v=<?= time() ?>">
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 	folder instead of downloading all of them to reduce the load. -->
-	<link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
+	<link rel=" stylesheet" href="/dist/css/skins/_all-skins.min.css">
 	<link rel="stylesheet" href="/dist/css/loader.css">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -53,7 +53,7 @@ if (!$_SESSION['ms_admin_usuario']) print "<script language='JavaScript'>locatio
 	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+	<script type="text/javascript" src="bower_components/moment-with-locales.js"></script>
 	<script type="text/javascript" src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 	<!-- DataTables -->
 	<!-- SlimScroll -->
@@ -65,11 +65,11 @@ if (!$_SESSION['ms_admin_usuario']) print "<script language='JavaScript'>locatio
 	<!-- AdminLTE for demo purposes -->
 	<script src="dist/js/demo.js"></script>
 
-	<script src="node_modules/angular/angular.js"></script>
+	<script src="node_modules/angular/angular.js?v=<?= time() ?>"></script>
 	<script src="node_modules/angular/angular-locale_pt-br.js"></script>
-	<script src="scripts/app.js"></script>
+	<script src="scripts/app.js?v=<?= time() ?>"></script>
 	<script src="scripts/jquery.maskMoney.min.js"></script>
-	<script src="scripts/controllers/teste.js"></script>
+	<script src="scripts/controllers/teste.js?v=<?= time() ?>"></script>
 
 	<script src="scripts/moment.min.js"></script>
 	<script src="scripts/moment-with-locales.min.js"></script>
@@ -93,7 +93,8 @@ if (!$_SESSION['ms_admin_usuario']) print "<script language='JavaScript'>locatio
 	<script type="text/javascript">
 		$(function() {
 			$('.date').datetimepicker({
-				format: 'DD/MM/YYYY'
+				format: 'DD/MM/YYYY',
+				locale: 'pt-br'
 			});
 
 			$(".moeda").maskMoney({

@@ -4898,8 +4898,31 @@ table.text-center th {
  * Misc: print
  * -----------
  */
+
+.print {
+  display:none;
+}
+
 @media print {
+
+  * {
+    background:transparent !important;
+    color:#000 !important;
+    text-shadow:none !important;
+    filter:none !important;
+    -ms-filter:none !important;
+  }
+
+  body {
+    margin:0;
+    padding:0;
+    line-height: 1.4em;
+  }
+
+  .print { display: block}
+
   .no-print,
+  .main-footer,
   .main-sidebar,
   .left-side,
   .main-header,
@@ -4938,3 +4961,4 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+

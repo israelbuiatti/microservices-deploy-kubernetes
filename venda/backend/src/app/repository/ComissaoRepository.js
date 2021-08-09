@@ -7,18 +7,18 @@ export class ComissaoRepository extends BaseRepository {
 
     async busca(pedido) {
 
-        let query = this.db().orderBy('data', 'asc');
+        let query = this.db().orderBy('id', 'asc');
 
         query.join('cliente', 'pedido.id_cliente', '=', 'cliente.id');
         query.join('cidade', 'cliente.cidade', '=', 'cidade.id');
         query.join('pedido_baixa', 'pedido.id', '=', 'pedido_baixa.id_pedido');
 
         if (!pedido.vendedor.flg_telemarketing) {
-            query.select('pedido.id', 'pedido.data', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'pedido.valor', 'pedido_baixa.comissao_vend as comissao')
+            query.select('pedido.id', 'pedido.data', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'pedido.valor', 'pedido_baixa.valor as valor_baixado', 'pedido_baixa.comissao_vend as comissao');
         }
 
         if (pedido.vendedor.flg_telemarketing) {
-            query.select('pedido.id', 'pedido.data', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'pedido.valor', 'pedido_baixa.comissao_tel as comissao')
+            query.select('pedido.id', 'pedido.data', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'pedido.valor', 'pedido_baixa.valor as valor_baixado', 'pedido_baixa.comissao_tel as comissao');
         }
         
 

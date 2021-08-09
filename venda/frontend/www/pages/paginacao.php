@@ -1,4 +1,4 @@
-<div class="col-sm-7" style="margin-top:20px">
+<!-- <div class="col-sm-7" style="margin-top:20px">
 	<div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
 		<ul class="pagination">
 			<li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
@@ -11,4 +11,4 @@
 			<li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li>
 		</ul>
 	</div>
-</div>
+</div> -->

@@ -1,5 +1,5 @@
 <?php include("../../cima.php") ?>
-<script src="pages/comissao/ComissaoCtrl.js?v=<?=time()?>"></script>
+<script src="pages/comissao/ComissaoCtrl.js?v=<?= time() ?>"></script>
 
 
 <!-- Content Wrapper. Contains page content -->

@@ -5,7 +5,7 @@ class ClienteRepository extends BaseRepository {
     table = 'cliente';
 
     async findAll() {
-        const results = await this.db().limit(20).orderBy('nome_razao')
+        const results = await this.db().limit(50).orderBy('nome_razao')
         // .select('id', 'nome_razao')
         return results;
     }
@@ -19,11 +19,15 @@ class ClienteRepository extends BaseRepository {
         query.select('cliente.*', 'cidade.descricao as descricao_cidade')
 
         if (cliente.nome_razao) {
-            query.whereRaw('LOWER(nome_razao) LIKE ?', '%' + cliente.nome_razao.toLowerCase() + '%');
+            query.whereRaw('LOWER(unaccent(nome_razao)) LIKE unaccent(?)', '%' + cliente.nome_razao.toLowerCase() + '%');
         }
 
         if (cliente.cnpj) {
             query.where('cnpj', cliente.cnpj);
+        }
+
+        if (cliente.cidade) {
+            query.where('cidade', cliente.cidade);
         }
 
         return await query;

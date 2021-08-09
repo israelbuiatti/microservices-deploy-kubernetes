@@ -1,5 +1,5 @@
 <?php include("../../cima.php") ?>
-<script src="pages/pedido/PedidoCtrl.js"></script>
+<script src="pages/pedido/PedidoCtrl.js?v=<?= time() ?>"></script>
 
 
 <!-- Content Wrapper. Contains page content -->

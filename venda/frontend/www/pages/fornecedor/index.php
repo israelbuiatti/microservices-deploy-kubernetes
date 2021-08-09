@@ -1,5 +1,5 @@
 <?php include("../../cima.php") ?>
-<script src="/pages/fornecedor/FornecedorCtrl.js"></script>
+<script src="/pages/fornecedor/FornecedorCtrl.js?v=<?= time() ?>"></script>
 
 
 <!-- Content Wrapper. Contains page content -->
