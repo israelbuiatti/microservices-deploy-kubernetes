@@ -29,7 +29,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	@Transactional
 	public User save(User user) {
+		user.setPassword(HashUtil.getSecureHash(user.getPassword()));
 		return repository.save(user);
+
 	}
 	
 	@Override
