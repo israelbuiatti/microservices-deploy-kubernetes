@@ -38,6 +38,8 @@ class PedidoService {
         if (!pedido.id) throw new AppError("Campo ID obrigatório!");
         this.validar(pedido);
 
+        delete pedido.valor;
+
         const result = await this.repository.update(pedido);
         return result;
     }

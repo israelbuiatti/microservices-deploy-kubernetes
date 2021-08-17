@@ -4,27 +4,27 @@ import AppError from "../exception/AppError";
 
 export default function ensureAuthenticated(request, response, next) {
 
-    // const authHeader = request.headers.authorization;
+    const authHeader = request.headers.authorization;
 
-    // if (!authHeader) {
-    //     throw new AppError('JWT token is missing', 401);
-    // }
+    if (!authHeader) {
+        throw new AppError('JWT token is missing', 401);
+    }
 
-    // const [type, token] = authHeader.split(' ');
+    const [type, token] = authHeader.split(' ');
 
-    // try {
-    //     const decoded = verify(token, authConfig.jwt.secret);
+    try {
+        const decoded = verify(token, authConfig.jwt.secret);
 
-    //     const { sub } = decoded;
+        const { sub } = decoded;
 
-    //     request.user = {
-    //         id: sub
-    //     }
+        request.user = {
+            username: sub
+        }
 
         return next();
-    // } catch (error) {
-    //     throw new AppError('Invalid JWT token', 401);
-    // }
+    } catch (error) {
+        throw new AppError('Invalid JWT token', 401);
+    }
 
 
 }

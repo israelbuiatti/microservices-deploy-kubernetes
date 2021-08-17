@@ -8,11 +8,55 @@
  *
  * Main module of the application.
  */
-angular
-  .module('admin', [
-	'textAngular'
-  ]);
+angular.module('admin', ['textAngular']);
   
+  
+
+
+//-------------------------------
+// INTERCEPTOR
+//-------------------------------
+
+
+// angular.module('admin').run(function ($http) {
+// 	$http.defaults.headers.common.Authorization = 'Basic YmVlcDpib29w';
+// });
+
+angular.module('admin', []).factory('Interceptor', Interceptor);
+
+Interceptor.$inject = ['$q'];
+
+function Interceptor($q) {
+	return {
+		request: function (config) {
+			config.headers['Authorization'] = "Bearer "+MS_TOKEN;
+			//alert('antes');
+			return config;
+		},
+		response: function (response) {
+			//alert('depois');
+			return response || $q.when(response);
+		},
+		responseError: function (error) {
+			if (error.status === 401 || error.status === 403) {
+				//faz alguma coisa.
+			}
+			return $q.reject(error);
+		}
+	};
+}
+
+
+angular.module('admin').config(['$httpProvider', Interceptor2]);
+
+function Interceptor2($httpProvider) {
+	$httpProvider.interceptors.push('Interceptor');
+}
+
+
+//-------------------------------
+
+
 var loadingOn = function() {
 	$('.cobre').css('display', 'block');
 }
@@ -23,12 +67,4 @@ var loadingOff = function() {
 
 angular.element(document).ready(function () {
     $('body').css('display', 'block');
-    
-    //var host = angular.element('[ng-controller="TesteCtrl"]').scope().teste;
-	//var pagina = window.location.href.replace(host,"").replace(".php","");
-	
-	//var menus = pagina.split("-");
-	//$('#menu'+menus[0]).attr("class","active");
-	//$('#menu'+menus[1]).attr("class","active");
-	
 });

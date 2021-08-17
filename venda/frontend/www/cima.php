@@ -47,6 +47,8 @@ if (!$_SESSION['ms_admin_usuario']) print "<script language='JavaScript'>locatio
 	<script>
 		var URL_API = "<?= getenv("URL_API") ?>"
 		var URL_API_CONSULTA_CEP = "<?= getenv("URL_API_CONSULTA_CEP") ?>"
+		var URL_API_ACL = "<?= getenv("URL_API_ACL") ?>"
+		var MS_TOKEN = "<?= $_SESSION['ms_admin_usuario'] ?>"
 	</script>
 
 

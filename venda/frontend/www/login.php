@@ -5,12 +5,40 @@ $usuario = $_POST['usuario'];
 $senha = $_POST['senha'];
 
 if (!empty($usuario)) {
-	if ($usuario == "montesinai" && $senha == "123456") {
-		$_SESSION['ms_admin_usuario'] = $usuario;
+
+	$api_acl = getenv("URL_API_ACL");
+	$post_login = "$api_acl/api/login";
+
+	$body = '{ "username": "' . $usuario . '", "password": "' . $senha .'" }';
+	
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $post_login);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Authorization: OAuth 2.0 token here"));
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+	$result = curl_exec($ch);
+	$retorno = json_decode($result);
+	
+
+	if (!empty($retorno->token)) {
+		$_SESSION['ms_admin_usuario'] = $retorno->token;
 		print "<script> document.location.href ='index.php';  </script>";
-	} else {
+	}
+	else {
 		print "<script> alert('Usuário ou senha invalido!') </script>";
 	}
+
+
+
+	// if ($usuario == "montesinai" && $senha == "123456") {
+	// 	$_SESSION['ms_admin_usuario'] = $usuario;
+	// 	print "<script> document.location.href ='index.php';  </script>";
+	// } else {
+	// 	print "<script> alert('Usuário ou senha invalido!') </script>";
+	// }
+
+
 }
 ?>
 
@@ -34,6 +62,15 @@ if (!empty($usuario)) {
 	<!-- iCheck -->
 	<link rel="stylesheet" href="plugins/iCheck/square/blue.css">
 
+	<script src="node_modules/angular/angular.js?v=<?= time() ?>"></script>
+	<script src="node_modules/angular/angular-locale_pt-br.js"></script>
+	<script src="scripts/app.js?v=<?= time() ?>"></script>
+	<script src="scripts/controllers/LoginCtrl.js?v=<?= time() ?>"></script>
+
+	<script src='dist/js/textAngular-rangy.min.js'></script>
+	<script src='dist/js/textAngular-sanitize.min.js'></script>
+	<script src='dist/js/textAngular.min.js'></script>
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -43,10 +80,10 @@ if (!empty($usuario)) {
 
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" ng-app="admin" ng-controller="LoginCtrl">
 	<div class="login-box">
 		<div class="login-logo">
-			Acesso Restrito
+			Acesso Restrito {{teste}}
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
