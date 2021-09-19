@@ -29,6 +29,10 @@ export default class VendedorController {
 
 	async busca(req, res) {
 
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+		
 		const vendedor = Vendedor.create(req.body);
 
 		const result = await this.vendedorService.busca(vendedor);
@@ -45,6 +49,10 @@ export default class VendedorController {
 
 	async create(req, res) {
 
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const vendedor = Vendedor.create(req.body);
 
 		const result = await this.vendedorService.insert(vendedor);
@@ -54,6 +62,11 @@ export default class VendedorController {
 	}
 
 	async update(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const { id } = req.params;
 		const vendedor = Vendedor.create(req.body);
 
@@ -63,6 +76,11 @@ export default class VendedorController {
 	}
 
 	async delete(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const { id } = req.params;
 		await this.vendedorService.delete(id);
 		return res.status(204).json();

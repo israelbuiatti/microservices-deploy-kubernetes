@@ -1,7 +1,6 @@
 import Pedido from '../models/Pedido';
-import PedidoItem from '../models/PedidoItem';
 import PedidoService from '../services/PedidoService';
-
+import AppError from '../exception/AppError';
 export default class PedidoController {
 
 	constructor() {
@@ -18,6 +17,8 @@ export default class PedidoController {
 
 		const pedido = Pedido.create(req.body);
 
+		pedido.id_vendedor_logado = req.user.id_vendedor;
+
 		const result = await this.pedidoService.busca(pedido);
 
 		return res.json(result);
@@ -32,6 +33,10 @@ export default class PedidoController {
 
 	async create(req, res) {
 
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const pedido = Pedido.create(req.body);
 
 		const result = await this.pedidoService.insert(pedido);
@@ -41,6 +46,11 @@ export default class PedidoController {
 	}
 
 	async update(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const { id } = req.params;
 		const pedido = Pedido.create(req.body);
 
@@ -50,6 +60,11 @@ export default class PedidoController {
 	}
 
 	async delete(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const { id } = req.params;
 		await this.pedidoService.delete(id);
 		return res.status(204).json();

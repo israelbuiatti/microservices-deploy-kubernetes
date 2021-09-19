@@ -1,6 +1,7 @@
 package com.ms.acl.entity;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -40,8 +41,8 @@ public class User {
 	
 	@Column(name = "password")
 	private String password;
-	
-	@Transient
+
+	@Column(name = "role")
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
@@ -56,6 +57,13 @@ public class User {
 	@Builder.Default
 	@Column(name = "flg_ativo")
 	private Boolean flgAtivo = true;
+
+	@Builder.Default
+	@Column(name = "uuid")
+	private UUID uuid = UUID.randomUUID();
+
+	@Column(name = "id_vendedor")
+	private Integer idVendedor;
 
 
 }

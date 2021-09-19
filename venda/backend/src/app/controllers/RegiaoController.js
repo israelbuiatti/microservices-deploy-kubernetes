@@ -1,5 +1,6 @@
 import Regiao from '../models/Regiao';
 import RegiaoService from '../services/RegiaoService';
+import AppError from '../exception/AppError';
 
 export default class RegiaoController {
 
@@ -21,6 +22,10 @@ export default class RegiaoController {
 
 	async create(req, res) {
 
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const regiao = Regiao.create(req.body);
 
 		const result = await this.regiaoService.insert(regiao);
@@ -30,6 +35,11 @@ export default class RegiaoController {
 	}
 
 	async update(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const { id } = req.params;
 		const regiao = Regiao.create(req.body);
 
@@ -39,6 +49,11 @@ export default class RegiaoController {
 	}
 
 	async delete(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+		
 		const { id } = req.params;
 		await this.regiaoService.delete(id);
 		return res.status(204).json();

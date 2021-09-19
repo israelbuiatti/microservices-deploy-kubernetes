@@ -1,6 +1,9 @@
 package com.ms.acl.enums;
 
 public enum Role {
-	ADMINISTRATOR,
-	SIMPLE
+	MASTER,
+	ADMIN,
+	VENDEDOR_R,
+	VENDEDOR_D,
+	TELEMARKETING
 }

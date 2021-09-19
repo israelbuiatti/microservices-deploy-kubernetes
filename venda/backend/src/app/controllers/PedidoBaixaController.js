@@ -1,6 +1,6 @@
 import PedidoBaixa from '../models/PedidoBaixa';
 import PedidoBaixaService from '../services/PedidoBaixaService';
-
+import AppError from '../exception/AppError';
 export default class PedidoBaixaController {
 
 	constructor() {
@@ -16,6 +16,10 @@ export default class PedidoBaixaController {
 
 	async create(req, res) {
 
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const pedidoBaixa = PedidoBaixa.create(req.body);
 
 		const result = await this.pedidoBaixaService.insert(pedidoBaixa);
@@ -25,6 +29,11 @@ export default class PedidoBaixaController {
 	}
 
 	async delete(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+		
 		const { id } = req.params;
 		await this.pedidoBaixaService.delete(id);
 		return res.status(204).json();

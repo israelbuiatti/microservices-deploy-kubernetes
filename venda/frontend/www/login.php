@@ -9,6 +9,7 @@ if (!empty($usuario)) {
 	$api_acl = getenv("URL_API_ACL");
 	$post_login = "$api_acl/api/login";
 
+
 	$body = '{ "username": "' . $usuario . '", "password": "' . $senha .'" }';
 	
 	$ch = curl_init();
@@ -20,6 +21,7 @@ if (!empty($usuario)) {
 	$result = curl_exec($ch);
 	$retorno = json_decode($result);
 	
+	
 
 	if (!empty($retorno->token)) {
 		$_SESSION['ms_admin_usuario'] = $retorno->token;
@@ -28,16 +30,6 @@ if (!empty($usuario)) {
 	else {
 		print "<script> alert('Usuário ou senha invalido!') </script>";
 	}
-
-
-
-	// if ($usuario == "montesinai" && $senha == "123456") {
-	// 	$_SESSION['ms_admin_usuario'] = $usuario;
-	// 	print "<script> document.location.href ='index.php';  </script>";
-	// } else {
-	// 	print "<script> alert('Usuário ou senha invalido!') </script>";
-	// }
-
 
 }
 ?>

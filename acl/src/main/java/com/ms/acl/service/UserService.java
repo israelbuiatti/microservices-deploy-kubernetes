@@ -13,6 +13,7 @@ public interface UserService {
 	User update(User usuario);
 	User delete(Long id);
 	User login(String username, String password);
+	User login(String username);
 	UserDetails loadUserByUsername(String username);
 	
 }

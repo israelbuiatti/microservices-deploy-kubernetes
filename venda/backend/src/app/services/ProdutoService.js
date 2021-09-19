@@ -39,6 +39,7 @@ class ProdutoService {
     }
 
     async delete(id) {
+
         const result = await this.repository.findById(id);
         if (!result) throw new AppError("Registro não encontrado.");
 

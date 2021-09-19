@@ -1,6 +1,6 @@
 <?php
 $api_acl = getenv("URL_API_ACL");
-$api_url = "$api_acl/api/menu";
+$api_url = "$api_acl/api/menu?token=".$_SESSION['ms_admin_usuario'];
 $json_data = file_get_contents($api_url);
 $lista_menu = json_decode($json_data);
 ?>

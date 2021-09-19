@@ -30,6 +30,10 @@ class ClienteRepository extends BaseRepository {
             query.where('cidade', cliente.cidade);
         }
 
+        if (cliente.id_regiao) {
+            query.whereRaw('cliente.id_regiao='+cliente.id_regiao);
+        }
+
         return await query;
 
     }

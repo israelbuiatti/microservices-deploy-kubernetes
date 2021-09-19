@@ -49,6 +49,7 @@ class VendedorService {
     }
 
     async delete(id) {
+
         await this.repository.delete(id);
     }
 

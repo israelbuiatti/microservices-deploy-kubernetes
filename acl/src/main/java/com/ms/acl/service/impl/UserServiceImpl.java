@@ -1,10 +1,12 @@
 package com.ms.acl.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -60,6 +62,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		User user = repository.findByUsernameAndPassword(username, password);
 		return user;
 	}
+
+	public User login(String username) {
+		Optional<User> user = repository.findByUsername(username);
+		return user.get();
+	}
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -69,9 +76,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		
 		User user = result.get();
 		
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
-//		authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
+		List<GrantedAuthority> authorities = Arrays.asList(
+				new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
+		);
 		
 		org.springframework.security.core.userdetails.User userSpring = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
 		

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.ms.acl.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -48,12 +49,13 @@ public class LoginController {
 		org.springframework.security.core.userdetails.User userSpring = (org.springframework.security.core.userdetails.User) auth
 				.getPrincipal();
 
-		String email = userSpring.getUsername();
 		List<String> roles = userSpring.getAuthorities()
 								.stream().map(authority -> authority.getAuthority())
 				.collect(Collectors.toList());
 
-		return ResponseEntity.ok(jwtManager.createToken(email, roles));
+		User user = service.login(userSpring.getUsername());
+
+		return ResponseEntity.ok(jwtManager.createToken(user, roles));
 
 	}
 

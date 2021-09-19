@@ -26,6 +26,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	}
 
 	$scope.reset = () => {
+		$scope.busca = {};
 		$scope.pedido = {};
 		$scope.pedido.pedido = ID;
 		$scope.fornecedor = {};
@@ -115,8 +116,10 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		
 		if (!validar()) return false;
 
+		$scope.pedido.id_tipo_pedido = TIPO_PEDIDO;
+
 		loadingOn();
-		$http({method: 'POST',url: URL_API + 'pedido',data: $scope.pedido})
+		$http({ method: 'POST', url: URL_API + 'pedido', data: $scope.pedido})
 			.then((response) => {
 				
 				alert("Pedido cadastrado com sucesso. Número " + response.data.id);
@@ -192,6 +195,8 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	}
 
 	$scope.buscar = () => {
+
+		$scope.busca.id_tipo_pedido = TIPO_PEDIDO;
 
 		loadingOn();
 		$http({ method: 'POST', url: URL_API + 'pedido/busca', data: $scope.busca })

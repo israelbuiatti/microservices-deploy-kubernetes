@@ -1,5 +1,6 @@
 import Produto from '../models/Produto';
 import ProdutoService from '../services/ProdutoService';
+import AppError from '../exception/AppError';
 
 export default class ProdutoController {
 
@@ -9,6 +10,7 @@ export default class ProdutoController {
 
 
 	async list(req, res) {
+
 		const results = await this.produtoService.findAll();
 		return res.json(results);
 	}
@@ -31,6 +33,10 @@ export default class ProdutoController {
 
 	async create(req, res) {
 
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const produto = Produto.create(req.body);
 
 		const result = await this.produtoService.insert(produto);
@@ -40,6 +46,11 @@ export default class ProdutoController {
 	}
 
 	async update(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const { id } = req.params;
 		const produto = Produto.create(req.body);
 
@@ -49,6 +60,11 @@ export default class ProdutoController {
 	}
 
 	async delete(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const { id } = req.params;
 		await this.produtoService.delete(id);
 		return res.status(204).json();

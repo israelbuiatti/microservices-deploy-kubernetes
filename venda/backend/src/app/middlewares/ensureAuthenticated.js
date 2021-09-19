@@ -13,12 +13,18 @@ export default function ensureAuthenticated(request, response, next) {
     const [type, token] = authHeader.split(' ');
 
     try {
+
+        console.log('token', token);
+
+
         const decoded = verify(token, authConfig.jwt.secret);
 
-        const { sub } = decoded;
+        console.log(decoded);
 
         request.user = {
-            username: sub
+            uuid: decoded.sub,
+            role: decoded.role[0],
+            id_vendedor: decoded.id_vendedor
         }
 
         return next();

@@ -1,5 +1,6 @@
 import Fornecedor from '../models/Fornecedor';
 import FornecedorService from '../services/FornecedorService';
+import AppError from '../exception/AppError';
 
 export default class FornecedorController {
 
@@ -15,7 +16,9 @@ export default class FornecedorController {
 
 	async busca(req, res) {
 
-		console.log('req', req.body);
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
 
 		const fornecedor = Fornecedor.create(req.body);
 
@@ -33,6 +36,10 @@ export default class FornecedorController {
 
 	async create(req, res) {
 
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const fornecedor = Fornecedor.create(req.body);
 
 		const result = await this.fornecedorService.insert(fornecedor);
@@ -42,6 +49,11 @@ export default class FornecedorController {
 	}
 
 	async update(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const { id } = req.params;
 		const fornecedor = Fornecedor.create(req.body);
 
@@ -51,6 +63,11 @@ export default class FornecedorController {
 	}
 
 	async delete(req, res) {
+
+		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
 		const { id } = req.params;
 		await this.fornecedorService.delete(id);
 		return res.status(204).json();

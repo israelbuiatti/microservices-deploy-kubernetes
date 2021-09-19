@@ -19,8 +19,6 @@ class PedidoBaixaService {
 
     async insert(pedidoBaixa) {
 
-        console.log(pedidoBaixa);
-
         const pedido = await this.repositoryPedido.findById(pedidoBaixa.id_pedido);
         const fornecedor = await this.repositoryFornecedor.findById(pedido.id_fornecedor);
         
@@ -28,10 +26,6 @@ class PedidoBaixaService {
         pedidoBaixa.valor = UTIL.moedaToUS(pedidoBaixa.valor);
         pedidoBaixa.data = UTIL.reformatDate(pedidoBaixa.data);
 
-        console.log('pedido', pedido);
-        console.log('pedido.valor', pedido.valor);
-        console.log('pedidoBaixa.valor', pedidoBaixa.valor);
-        
 
         if (pedidoBaixa.valor > pedido.valor) {
             throw new AppError("Valor da baixa não pode ser maior que o valor do pedido!");
@@ -53,6 +47,7 @@ class PedidoBaixaService {
     }
 
     async delete(id) {
+
         await this.repository.findByPedido(id);
         await this.repository.delete(id);
     }

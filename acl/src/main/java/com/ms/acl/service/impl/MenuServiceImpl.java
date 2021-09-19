@@ -30,4 +30,10 @@ public class MenuServiceImpl implements MenuService {
 		return repository.all();
 	}
 
+	@Override
+	public List<Menu> getMenuWithPermission(String uuid) {
+		return repository.getMenuWithPermission(uuid);
+	}
+
+
 }

@@ -30,6 +30,7 @@ class PedidoItemService {
     }
 
     async delete(id) {
+
         const pedidoItem = await this.repository.findById(id);
         await this.repository.delete(id);
         await this.calcularValorPedido(pedidoItem.id_pedido);

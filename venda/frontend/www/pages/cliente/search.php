@@ -1,21 +1,38 @@
-<div class="col-md-6" style="margin-bottom:20px">
+<div class="col-md-10" style="margin-bottom:20px">
 	<form role="form">
-		<div class="box-body">
-			<div class="form-group">
+
+
+
+		<div class="form-group">
+
+			<div class="col-sm-6">
 				<label>Razão Social</label>
 				<input class="form-control" placeholder="Digite Razão Social" ng-model="busca.nome_razao">
 			</div>
-			<div class="form-group">
+
+			<div class="col-sm-6">
 				<label>CNPJ</label>
 				<input class="form-control" placeholder="Digite o CNPJ" ng-model="busca.cnpj">
 			</div>
-			<div class="form-group">
+
+			<div class="col-sm-6" style="margin-top:20px">
 				<label>Cidade</label>
 				<select class="form-control" ng-options="item.id as item.descricao for item in listaCidades" ng-model="busca.cidade">
 					<option value=""> - Selecione - </option>
 				</select>
 			</div>
+
+			<div class="col-sm-6" style="margin-top:20px">
+				<label>Região</label>
+				<select class="form-control" ng-options="item.id as item.descricao for item in listaRegiao" ng-model="busca.id_regiao">
+					<option value=""> - Selecione - </option>
+				</select>
+			</div>
+
 		</div>
+
+		<div style="clear:both; margin-bottom:20px"></div>
+
 		<div class="box-footer">
 			<button type="submit" class="btn btn-primary" ng-click="buscar()">Buscar</button>
 		</div>

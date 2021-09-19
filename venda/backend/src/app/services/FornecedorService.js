@@ -20,10 +20,12 @@ class FornecedorService {
     }
 
     async busca(fornecedor) {
+
         return await this.repository.busca(fornecedor);
     }
 
     async insert(fornecedor) {
+
 
         this.validar(fornecedor);
 
@@ -41,6 +43,7 @@ class FornecedorService {
     }
 
     async delete(id) {
+
         const result = await this.repository.findById(id);
         if (!result) throw new AppError("Registro não encontrado.");
 

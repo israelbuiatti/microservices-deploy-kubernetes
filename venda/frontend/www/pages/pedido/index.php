@@ -1,6 +1,8 @@
 <?php include("../../cima.php") ?>
 <script src="pages/pedido/PedidoCtrl.js?v=<?= time() ?>"></script>
-
+<script>
+	var TIPO_PEDIDO = 1;
+</script>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" ng-controller="PedidoCtrl">
@@ -21,6 +23,7 @@
 		<div class="box box-primary">
 			<div class="box-header with-border">
 				<h3 class="box-title">Pedido</h3>
+				<button class="btn" style="float:right; margin-left:10px" ng-click="cancel()" ng-show="state == 'insert' || state == 'update'">Voltar</button>
 				<button class="btn btn-success" ng-click="preparaCadastrar()" style="float:right"> <i class="fa fa-plus"></i> Novo </button>
 			</div>
 

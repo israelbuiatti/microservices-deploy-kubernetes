@@ -35,6 +35,7 @@ class RegiaoService {
     }
 
     async delete(id) {
+
         await this.repository.delete(id);
     }
 

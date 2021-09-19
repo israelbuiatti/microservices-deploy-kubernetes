@@ -9,5 +9,7 @@ import java.util.List;
 public interface MenuService {
 
 	List<Menu> all();
+
+	List<Menu> getMenuWithPermission(String id);
 	
 }
