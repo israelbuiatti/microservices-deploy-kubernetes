@@ -142,7 +142,34 @@ angular.module('admin').controller('FornecedorCtrl', ["$scope", "$http", functio
 		loadingOn();
 		$http({ method: 'POST', url: URL_API + 'fornecedor/busca', data: $scope.busca })
 			.then(
-				(response) => $scope.listaFornecedores = response.data,
+				(response) => { 
+					$scope.listaFornecedores = response.data
+
+					$scope.listaFornecedores.forEach(item => {
+
+						if (item.comissao_repr != null) {
+							item.comissao_repr = item.comissao_repr.toLocaleString('pt-BR', { minimumFractionDigits: 4 });
+						}
+
+						if (item.comissao_vend != null) {
+							item.comissao_vend = item.comissao_vend.toLocaleString('pt-BR', { minimumFractionDigits: 4 });
+						}
+
+						if (item.comissao_tel != null) {
+							item.comissao_tel = item.comissao_tel.toLocaleString('pt-BR', { minimumFractionDigits: 4 });
+						}
+
+						if (item.comissao_vend_d != null) {
+							item.comissao_vend_d = item.comissao_vend_d.toLocaleString('pt-BR', { minimumFractionDigits: 4 });
+						}
+
+						if (item.comissao_sup_d != null) {
+							item.comissao_sup_d = item.comissao_sup_d.toLocaleString('pt-BR', { minimumFractionDigits: 4 });
+						}
+
+					})
+
+				},
 				(error) => alert(error.data.message)
 			)
 			.finally(() => loadingOff());

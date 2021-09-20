@@ -76,7 +76,7 @@
 
 <div class="form-group">
 
-	<div class="col-sm-3">
+	<div class="col-sm-3" ng-if="false">
 		<label>Comissão Representante:</label>
 
 		<div class="input-group">
@@ -86,6 +86,8 @@
 			<input ng-model="fornecedor.comissao_repr" class="form-control moeda4">
 		</div>
 	</div>
+
+	<div> Representada: </div>
 
 	<div class=" col-sm-3">
 		<label>Comissão Vendedor:</label>
@@ -108,4 +110,32 @@
 			<input ng-model="fornecedor.comissao_tel" class="form-control moeda4">
 		</div>
 	</div>
+
+	<div style="clear:both"></div>
+
+	<div style="margin-top:20px"> Distribuidora: </div>
+
+	<div class=" col-sm-3">
+		<label>Comissão Vendedor:</label>
+
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-percent"></i>
+			</div>
+			<input ng-model="fornecedor.comissao_vend_d" class="form-control moeda4">
+		</div>
+	</div>
+
+	<div class="col-sm-3">
+		<label>Comissão Supervisor:</label>
+
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-percent"></i>
+			</div>
+			<input ng-model="fornecedor.comissao_sup_d" class="form-control moeda4">
+		</div>
+	</div>
+
+
 </div>

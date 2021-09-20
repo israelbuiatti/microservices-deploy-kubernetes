@@ -56,6 +56,8 @@ class FornecedorService {
         fornecedor.comissao_repr = UTIL.moedaToUS(fornecedor.comissao_repr);
         fornecedor.comissao_vend = UTIL.moedaToUS(fornecedor.comissao_vend);
         fornecedor.comissao_tel = UTIL.moedaToUS(fornecedor.comissao_tel);
+        fornecedor.comissao_vend_d = UTIL.moedaToUS(fornecedor.comissao_vend_d);
+        fornecedor.comissao_sup_d = UTIL.moedaToUS(fornecedor.comissao_sup_d);
 
     }
 
