@@ -27,9 +27,9 @@ class PedidoRepository extends BaseRepository {
             query.whereRaw('LOWER(cliente.nome_razao) LIKE ?', '%' + pedido.nome_razao.toLowerCase() + '%');
         }
 
-        if (pedido.id_tipo_pedido) {
-            query.where('id_tipo_pedido', pedido.id_tipo_pedido);
-        }
+        // if (pedido.id_tipo_pedido) {
+        //     query.where('id_tipo_pedido', pedido.id_tipo_pedido);
+        // }
         
         // if (pedido.id_vendedor_logado != 'null') {
         //     console.log(4, 'entrou');
