@@ -31,10 +31,10 @@ class PedidoRepository extends BaseRepository {
             query.where('id_tipo_pedido', pedido.id_tipo_pedido);
         }
         
-        if (pedido.id_vendedor_logado != 'null') {
-            console.log(4, 'entrou');
-            query.where('id_vendedor', pedido.id_vendedor_logado);
-        }
+        // if (pedido.id_vendedor_logado != 'null') {
+        //     console.log(4, 'entrou');
+        //     query.where('id_vendedor', pedido.id_vendedor_logado);
+        // }
 
         return await query;
 
