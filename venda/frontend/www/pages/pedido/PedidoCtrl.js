@@ -185,6 +185,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.getListaPedidoItem();
 		$scope.getPedidoBaixa();
 		$scope.carregaFornecedor();
+		$scope.pedidoBaixaForm = {};
 	}
 
 
