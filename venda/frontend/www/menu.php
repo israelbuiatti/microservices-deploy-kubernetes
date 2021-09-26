@@ -18,7 +18,7 @@ $lista_menu = json_decode($json_data);
 				<img src="{{teste}}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p>GB Admin </p>
+				<p><?= $_SESSION['ms_vendedor_access']->username ?></p>
 				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 			</div>
 		</div>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("version.php");
+include("function.php");
 
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
 	$_PROTOCOL = "https";
@@ -70,20 +71,25 @@ if (!$_SESSION['ms_admin_usuario']) print "<script language='JavaScript'>locatio
 	<script src="node_modules/angular/angular.js?v=<?= time() ?>"></script>
 	<script src="node_modules/angular/angular-locale_pt-br.js"></script>
 	<script src="scripts/app.js?v=<?= time() ?>"></script>
+	<script src="scripts/functions.js?v=<?= time() ?>"></script>
 	<script src="scripts/jquery.maskMoney.min.js"></script>
 	<script src="scripts/controllers/teste.js?v=<?= time() ?>"></script>
+	<script src="scripts/controllers/MainCtrl.js?v=<?= time() ?>"></script>
 
 	<script src="scripts/moment.min.js"></script>
 	<script src="scripts/moment-with-locales.min.js"></script>
+	<script src="scripts/jquery.mask.min.js"></script>
 
 	<script src='dist/js/textAngular-rangy.min.js'></script>
 	<script src='dist/js/textAngular-sanitize.min.js'></script>
 	<script src='dist/js/textAngular.min.js'></script>
 
 
-	<script src="plugins/input-mask/jquery.inputmask.js"></script>
+	<!-- <script src="plugins/input-mask/jquery.inputmask.js"></script> -->
+	<script src="plugins/input-mask/jquery.inputmask.bundle.js"></script>
 	<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 	<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
 
 	<!-- page script -->
 	<script>
@@ -92,36 +98,11 @@ if (!$_SESSION['ms_admin_usuario']) print "<script language='JavaScript'>locatio
 		});
 	</script>
 
-	<script type="text/javascript">
-		$(function() {
-			$('.date').datetimepicker({
-				format: 'DD/MM/YYYY',
-				locale: 'pt-br'
-			});
-
-			$(".moeda").maskMoney({
-				decimal: ",",
-				thousands: ".",
-				allowZero: true
-			});
-
-			$(".moeda4").maskMoney({
-				precision: 4,
-				decimal: ",",
-				thousands: ".",
-				allowZero: true
-			});
-
-
-			$('[data-mask]').inputmask()
-
-		});
-	</script>
 
 </head>
 
 
-<body class="hold-transition skin-blue sidebar-mini" ng-app="admin" style="display:none">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="admin" ng-controller="MainController" style="display:none">
 
 	<script>
 		var ID = '<?= $id ?>';

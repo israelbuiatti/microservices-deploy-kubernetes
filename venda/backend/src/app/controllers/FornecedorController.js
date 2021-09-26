@@ -16,7 +16,7 @@ export default class FornecedorController {
 
 	async busca(req, res) {
 
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+		if (!req.user.admin) {
 			throw new AppError("Usuário não autorizado!", 401);
 		}
 
@@ -36,7 +36,7 @@ export default class FornecedorController {
 
 	async create(req, res) {
 
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+		if (!req.user.admin) {
 			throw new AppError("Usuário não autorizado!", 401);
 		}
 
@@ -50,7 +50,7 @@ export default class FornecedorController {
 
 	async update(req, res) {
 
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+		if (!req.user.admin) {
 			throw new AppError("Usuário não autorizado!", 401);
 		}
 
@@ -64,7 +64,7 @@ export default class FornecedorController {
 
 	async delete(req, res) {
 
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+		if (!req.user.admin) {
 			throw new AppError("Usuário não autorizado!", 401);
 		}
 

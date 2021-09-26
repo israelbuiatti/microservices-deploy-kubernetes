@@ -12,6 +12,11 @@ class VendedorService {
         return result;
     }
 
+    async findByUuid(id) {
+        const result = await this.repository.findByUuid(id);
+        return result;
+    }
+
     async findAll() {
         const results = await this.repository.findAll();
         return results;

@@ -19,6 +19,7 @@ public class MenuDTO {
 	private Long id;
 	private String descricao;
 	private String url;
+	private String icon;
 
 	public static MenuDTO converter(Menu menu) {
 
@@ -26,6 +27,7 @@ public class MenuDTO {
 				.id(menu.getId())
 				.descricao(menu.getDescricao())
 				.url(menu.getUrl())
+				.icon(menu.getIcon())
 				.build();
 
 	}

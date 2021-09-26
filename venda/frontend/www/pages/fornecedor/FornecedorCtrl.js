@@ -10,15 +10,6 @@ angular.module('admin').controller('FornecedorCtrl', ["$scope", "$http", functio
 
 
 	//---------------
-	$scope.isEmpty = (param) => {
-
-		if (param == undefined || param == '') {
-			return true;
-		}
-		return false;
-
-	}
-
 
 	$scope.getEstados = () => {
 

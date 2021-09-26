@@ -14,17 +14,16 @@ export default function ensureAuthenticated(request, response, next) {
 
     try {
 
-        console.log('token', token);
-
-
         const decoded = verify(token, authConfig.jwt.secret);
-
-        console.log(decoded);
 
         request.user = {
             uuid: decoded.sub,
-            role: decoded.role[0],
+            role: decoded.role,
             id_vendedor: decoded.id_vendedor
+        }
+
+        if (decoded.role.includes('ROLE_ADMIN')) {
+            request.user.admin = true;
         }
 
         return next();

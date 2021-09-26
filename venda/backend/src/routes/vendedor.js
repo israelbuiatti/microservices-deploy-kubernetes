@@ -11,6 +11,7 @@ routes.get('/', (req, res) => vendedorController.list(req, res)); // POSSUI ESSA
 routes.get('/:id', vendedorController.get.bind(vendedorController));
 routes.post('/', vendedorController.create.bind(vendedorController));
 routes.post('/busca', vendedorController.busca.bind(vendedorController));
+routes.post('/getAccess', vendedorController.getAccess.bind(vendedorController));
 routes.put('/:id', vendedorController.update.bind(vendedorController));
 routes.delete('/:id', vendedorController.delete.bind(vendedorController));
 

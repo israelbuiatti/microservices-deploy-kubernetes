@@ -26,7 +26,27 @@
 			<div class="box-header with-border">
 				<h3 class="box-title">DASHBOARD VENDA</h3>
 
-				<table id="example2" class="table table-bordered table-hover" style="margin-top:50px; margin-bottom: 50px">
+
+				<div>
+
+
+					<?php
+					foreach ($lista_menu as $menu) {
+						if ($menu->icon) {
+							echo "
+							<a class='btn btn-app' style='margin:5%' href='$menu->url'>
+								<span class='badge bg-teal'>1</span>
+								<i class='fa fa-$menu->icon'></i> $menu->descricao
+							</a>
+						";
+						}
+					}
+					?>
+
+				</div>
+
+
+				<table id="example2" class="table table-bordered table-hover" style="margin-top:50px; margin-bottom: 50px" ng-if="false">
 					<thead>
 						<tr>
 							<th>Serviço</th>

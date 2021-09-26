@@ -12,15 +12,6 @@ angular.module('admin').controller('ClienteCtrl', ["$scope", "$http", function (
 
 
 	//---------------
-	$scope.isEmpty = (param) => {
-
-		if (param == undefined || param == '') {
-			return true;
-		}
-		return false;
-
-	}
-
 
 	$scope.getEstados = () => {
 
@@ -70,7 +61,7 @@ angular.module('admin').controller('ClienteCtrl', ["$scope", "$http", function (
 	$scope.cancel = () => {
 		$scope.state = "search";
 		$scope.cliente = {};
-		$scope.busca = {};
+		//$scope.busca = {};
 
 	}
 
@@ -96,8 +87,17 @@ angular.module('admin').controller('ClienteCtrl', ["$scope", "$http", function (
 			alert('Campo Comprador obrigatório!');
 			return false;
 		}
+		if ($scope.isEmpty($scope.cliente.cidade)) {
+			alert('Campo Cidade obrigatório!');
+			return false;
+		}
 		if ($scope.isEmpty($scope.cliente.cnpj)) {
 			alert('Campo CNPJ obrigatório!');
+			return false;
+		}
+
+		if (!validaCpfCnpj($scope.cliente.cnpj)) {
+			alert('CPF/Cnpj Inválido!');
 			return false;
 		}
 

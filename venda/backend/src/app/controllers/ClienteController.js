@@ -41,7 +41,7 @@ export default class ClienteController {
 
 	async update(req, res) {
 
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+		if (!req.user.admin) {
 			throw new AppError("Usuário não autorizado!", 401);
 		}
 
@@ -55,7 +55,7 @@ export default class ClienteController {
 
 	async delete(req, res) {
 
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+		if (!req.user.admin) {
 			throw new AppError("Usuário não autorizado!", 401);
 		}
 

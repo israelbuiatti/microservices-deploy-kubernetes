@@ -2,13 +2,12 @@
 
 angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($scope, $http) {
 
+
 	this.$onInit = () => {
-		$scope.cancel();
 		$scope.reset();
-		$scope.getListaFornecedor();
+		$scope.cancel();
+		$scope.getCidades();
 		$scope.getListaVendedor();
-		$scope.getListaVendedorTelemarketing();
-		$scope.buscar();
 	}
 
 	$scope.reset = () => {
@@ -27,15 +26,68 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$('#datetimepicker4').val('');
 	}
 
-	$scope.getListaFornecedor = () => {
+	const validarCliente = () => {
+
+		if ($scope.isEmpty($scope.cliente.cnpj)) {
+			alert('Campo CPF/CNPJ obrigatório!');
+			return false;
+		}
+
+		if (!validaCpfCnpj($scope.cliente.cnpj) && $scope.state == 'insert') {
+			alert('CPF/Cnpj Inválido!');
+			return false;
+		}
+
+		if ($scope.isEmpty($scope.cliente.nome_razao)) {
+			alert('Campo Razão Social obrigatório!');
+			return false;
+		}
+		if ($scope.isEmpty($scope.cliente.comprador)) {
+			alert('Campo Comprador obrigatório!');
+			return false;
+		}
+		if ($scope.isEmpty($scope.cliente.cidade)) {
+			alert('Campo Cidade obrigatório!');
+			return false;
+		}
+
+		return true;
+
+	}
+
+	const validarPedido = () => {
+
+		if ($scope.isEmpty($scope.pedido.data)) {
+			alert('Campo Data obrigatório!');
+			return false;
+		}
+		if ($scope.isEmpty($scope.pedido.tipopag)) {
+			alert('Campo Tipo Pagamento obrigatório!');
+			return false;
+		}
+		if ($scope.isEmpty($scope.pedido.prazo)) {
+			alert('Campo Prazo obrigatório!');
+			return false;
+		}
+		if ($scope.isEmpty($scope.pedido.id_vendedor) && $scope.userAccess.admin) {
+			alert('Campo Vendedor obrigatório!');
+			return false;
+		}
+		
+		return true;
+
+	}
+
+	$scope.getCidades = () => {
 
 		loadingOn();
-		$http({ method: 'GET', url: URL_API + 'fornecedor' })
+		$http({ method: 'GET', url: URL_API + 'cidade/' })
 			.then(
-				(response) => $scope.listaFornecedor = response.data,
+				(response) => $scope.listaCidades = response.data,
 				(error) => alert(error.data.message)
 			)
 			.finally(() => loadingOff());
+
 	}
 
 	$scope.getListaVendedor = () => {
@@ -51,58 +103,86 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			.finally(() => loadingOff());
 	}
 
-	$scope.getListaVendedorTelemarketing = () => {
+
+
+	$scope.getCliente = () => {
 
 		loadingOn();
-		$http({ method: 'GET', url: URL_API + 'vendedor?telemarketing=true' })
+		$http({ method: 'GET', url: URL_API + 'cliente/'+$scope.pedido.id_cliente })
 			.then(
 				(response) => {
-					$scope.listaTelemarketing = response.data;
+					$scope.cliente = response.data
+					$scope.cliente.blocked = true;
 				},
 				(error) => alert(error.data.message)
 			)
 			.finally(() => loadingOff());
-	}
-	
-	
-	const validar = () => {
-
-		if ($scope.isEmpty($scope.pedido.data)) {
-			alert('Campo data obrigatório!');
-			return false;
-		}
-		if ($scope.isEmpty($scope.pedido.tipopag)) {
-			alert('Campo tipo pagamento obrigatório!');
-			return false;
-		}
-		if ($scope.isEmpty($scope.pedido.prazo)) {
-			alert('Campo prazo obrigatório!');
-			return false;
-		}
-		if ($scope.isEmpty($scope.pedido.id_cliente)) {
-			alert('Campo cliente obrigatório!');
-			return false;
-		}
-		if ($scope.isEmpty($scope.pedido.id_fornecedor)) {
-			alert('Campo fornecedor obrigatório!');
-			return false;
-		}
-		if ($scope.isEmpty($scope.pedido.id_vendedor)) {
-			alert('Campo vendedor obrigatório!');
-			return false;
-		}
-
-		return true;
 
 	}
-	
-	$scope.cadastrar = function() {
+
+	$scope.consultaCpfCnpj = () => {
+
+		const objConsulta = { cnpj: $scope.cliente.cnpj }
+
+		loadingOn();
+		$http({ method: 'POST', url: URL_API + 'cliente/busca', data: objConsulta })
+			.then(
+				(response) => { 
+					const cnpj = $scope.cliente.cnpj;
+					if (response.data[0]) {
+						$scope.cliente = response.data[0];
+						$scope.cliente.blocked = true;
+					}
+					else {
+						$scope.cliente = { cnpj: cnpj };
+					}
+				},
+				(error) => { 
+					$scope.cliente = { cnpj: cnpj };
+					alert(error.data.message); 
+				}
+			)
+			.finally(() => loadingOff());
+
+	}
+
+	$scope.cadastrar = () => {
 
 		$scope.pedido.data = $('#pedido_data').val();
-		
-		if (!validar()) return false;
+
+		if (!validarCliente()) return false;
+
+		if (!validarPedido()) return false;
+
+		if ($scope.cliente.id) { //CLIENTE JÁ CADASTRADO
+
+			$scope.cadastrarPedido();
+
+		}
+		else { //CADASTRAR CLIENTE
+
+			loadingOn();
+			$http({ method: 'POST', url: URL_API + 'cliente', data: $scope.cliente })
+				.then((response) => {
+
+					$scope.cliente.id = response.data.id;
+
+					$scope.cadastrarPedido();
+
+				}, (error) => {
+					alert(error.data.message);
+				})
+				.finally(() => loadingOff());
+
+		}
+
+	}
+	
+	$scope.cadastrarPedido = () => {
 
 		$scope.pedido.id_tipo_pedido = TIPO_PEDIDO;
+
+		$scope.pedido.id_cliente = $scope.cliente.id;
 
 		loadingOn();
 		$http({ method: 'POST', url: URL_API + 'pedido', data: $scope.pedido})
@@ -141,19 +221,6 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	}
 	
 	 
-	$scope.carregaFornecedor = () => {
-		$http({method: 'GET',url: URL_API + 'fornecedor/'+$scope.pedido.id_fornecedor})
-			.then((response) => {
-				$scope.fornecedor = response.data;
-				
-				//$scope.fornecedor.comissao_vend = ($scope.fornecedor.comissao_vend*100)+'%';
-				
-			}, (error) => {
-				alert(error.data.message);
-			});
-	}
-	
-
 
 	//---------------------------------
 	// NOVO
@@ -169,9 +236,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.pedido = angular.copy(item);
 		$scope.cliente.nome_razao = $scope.pedido.nome_razao;
 		$scope.getListaPedidoItem();
-		$scope.getPedidoBaixa();
-		$scope.carregaFornecedor();
-		$scope.pedidoBaixaForm = {};
+		$scope.getCliente();
 	}
 
 
@@ -179,6 +244,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.state = "search";
 		$scope.buscaModal = {};
 		$scope.buscaModalProduto = {};
+		$scope.buscar();
 	}
 
 	$scope.buscar = () => {
@@ -221,34 +287,6 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			.finally(() => loadingOff());
 	}
 
-
-	//---------------------------------
-	// MODAL CLIENTE
-	//---------------------------------
-
-	$scope.buscarModal = () => {
-
-		if ($scope.buscaModal.nome_razao.length > 3) {
-			loadingOn();
-			$http({ method: 'POST', url: URL_API + 'cliente/busca', data: $scope.buscaModal })
-				.then(
-					(response) => $scope.clientes = response.data,
-					(error) => console.log('Ocorreu um erro!')
-				)
-				.finally(() => loadingOff());
-		}
-
-	}
-
-	$scope.selecionar = (cliente) => {
-		$scope.cliente = cliente;
-		$scope.pedido.id_cliente = cliente.id;
-	}
-
-	$scope.abrirModalCliente = () => {
-		$scope.buscaModal = {};
-		$scope.clientes = [];
-	}
 
 
 	//---------------------------------
@@ -371,72 +409,6 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$http({ method: 'DELETE', url: URL_API + 'pedidoItem/' + item.id })
 			.then((response) => {
 				$scope.getListaPedidoItem();
-			}, (error) => {
-				alert(error.data.message);
-			})
-			.finally(() => loadingOff());
-	}
-
-	//---------------------------------
-	// Baixar
-	//---------------------------------
-
-	$scope.baixar = function () {
-
-		$scope.pedidoBaixaForm.data = $('#data_baixado').val();
-		if ($scope.isEmpty($scope.pedidoBaixaForm.nf)) {
-			alert('Campo NF obrigatório!');
-			return;
-		}
-		if ($scope.isEmpty($scope.pedidoBaixaForm.data)) {
-			alert('Campo Data obrigatório!');
-			return;
-		}
-		if ($scope.isEmpty($scope.pedidoBaixaForm.valor)) {
-			alert('Campo Valor obrigatório!');
-			return;
-		}
-
-		$scope.pedidoBaixaForm.id_pedido = $scope.pedido.id;
-
-		loadingOn();
-
-		$http({ method: 'POST', url: URL_API + 'pedidoBaixa/', data: $scope.pedidoBaixaForm })
-			.then((response) => {
-				$scope.getPedidoBaixa();
-				alert('Pedido baixado com sucesso!');
-				$scope.pedidoBaixaForm = {};
-			}, (error) => {
-				alert(error.data.message);
-			})
-			.finally(() => loadingOff());
-
-	}
-
-	$scope.getPedidoBaixa = () => {
-
-		loadingOn();
-		$http({ method: 'GET', url: URL_API + 'pedidoBaixa/' + $scope.pedido.id })
-			.then(
-				(response) => {
-					$scope.pedidoBaixa = response.data;
-					$scope.pedidoBaixa.data = moment($scope.pedidoBaixa.data).add(1, 'days').format('DD/MM/yyyy');
-				},
-				(error) => alert(error.data.message)
-			)
-			.finally(() => loadingOff());
-	}
-
-	$scope.excluirBaixa = () => {
-
-		if (!confirm("Confirma exclusão?")) {
-			return;
-		}
-
-		loadingOn();
-		$http({ method: 'DELETE', url: URL_API + 'pedidoBaixa/' + $scope.pedido.id })
-			.then((response) => {
-				$scope.pedidoBaixa = {};
 			}, (error) => {
 				alert(error.data.message);
 			})

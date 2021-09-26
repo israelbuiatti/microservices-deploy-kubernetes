@@ -69,8 +69,8 @@
 <div class="form-group">
 
 	<div class="col-sm-4">
-		<label>CNPJ</label>
-		<input class="form-control" type="text" ng-model="cliente.cnpj">
+		<label>CNPJ / CPF</label>
+		<input class="form-control cpfCnpjMask" type="text" ng-model="cliente.cnpj">
 	</div>
 
 	<div class="col-sm-4">

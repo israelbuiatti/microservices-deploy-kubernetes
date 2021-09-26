@@ -17,10 +17,6 @@ export default class PedidoItemController {
 
 	async create(req, res) {
 
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
-			throw new AppError("Usuário não autorizado!", 401);
-		}
-
 		const pedidoItem = PedidoItem.create(req.body);
 
 		const result = await this.pedidoItemService.insert(pedidoItem);
@@ -30,11 +26,7 @@ export default class PedidoItemController {
 	}
 
 	async delete(req, res) {
-
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
-			throw new AppError("Usuário não autorizado!", 401);
-		}
-		
+	
 		const { id } = req.params;
 		await this.pedidoItemService.delete(id);
 		return res.status(204).json();

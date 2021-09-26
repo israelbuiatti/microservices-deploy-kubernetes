@@ -10,15 +10,6 @@ angular.module('admin').controller('VendedorCtrl', ["$scope", "$http", function 
 
 
 	//---------------
-	$scope.isEmpty = (param) => {
-
-		if (param == undefined || param == '') {
-			return true;
-		}
-		return false;
-
-	}
-
 
 	$scope.getEstados = () => {
 

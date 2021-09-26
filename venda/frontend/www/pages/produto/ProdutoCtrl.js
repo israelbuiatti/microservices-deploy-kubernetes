@@ -8,18 +8,6 @@ angular.module('admin').controller('ProdutoCtrl', ["$scope", "$http", function (
 		$scope.getListaFornecedor();
 	}
 
-
-	//---------------
-	$scope.isEmpty = (param) => {
-
-		if (param == undefined || param == '') {
-			return true;
-		}
-		return false;
-
-	}
-	//---------------
-
 	$scope.cancel = () => {
 		$scope.state = "search";
 		$scope.produto = {};

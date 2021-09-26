@@ -22,7 +22,7 @@ export default class RegiaoController {
 
 	async create(req, res) {
 
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+		if (!req.user.admin) {
 			throw new AppError("Usuário não autorizado!", 401);
 		}
 
@@ -36,7 +36,7 @@ export default class RegiaoController {
 
 	async update(req, res) {
 
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+		if (!req.user.admin) {
 			throw new AppError("Usuário não autorizado!", 401);
 		}
 
@@ -50,7 +50,7 @@ export default class RegiaoController {
 
 	async delete(req, res) {
 
-		if (!['ROLE_MASTER', 'ROLE_ADMIN'].includes(req.user.role)) {
+		if (!req.user.admin) {
 			throw new AppError("Usuário não autorizado!", 401);
 		}
 		

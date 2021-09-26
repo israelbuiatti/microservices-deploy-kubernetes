@@ -25,6 +25,9 @@ public class Menu {
 
 	@Column(name = "url")
 	private String url;
+
+	@Column(name = "icon")
+	private String icon;
 	
 	@Column(name = "flg_ativo")
 	private Boolean flgAtivo;

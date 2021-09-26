@@ -2,20 +2,6 @@
 
 angular.module('admin').controller('ComissaoCtrl', ["$scope", "$http", function ($scope, $http) {
 
-	//-----------------------
-
-	$scope.isEmpty = (param) => {
-
-		if (param == undefined || param == '') {
-			return true;
-		}
-		return false;
-
-	}
-
-	//-----------------------
-
-
 	this.$onInit = () => {
 		$scope.state = "search";
 		$scope.pedido = {};

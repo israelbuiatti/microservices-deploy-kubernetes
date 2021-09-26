@@ -1,5 +1,12 @@
 <?php
 session_start();
+include("function.php");
+
+require 'vendor/autoload.php';
+use Firebase\JWT\JWT;
+
+
+
 
 $usuario = $_POST['usuario'];
 $senha = $_POST['senha'];
@@ -25,6 +32,17 @@ if (!empty($usuario)) {
 
 	if (!empty($retorno->token)) {
 		$_SESSION['ms_admin_usuario'] = $retorno->token;
+
+		$_SESSION['ms_vendedor_access'] = JWT::decode($retorno->token, "abcabc", array('HS512'));
+		
+		//GET ACCESS USER
+		// $url = getenv("URL_API_INTERNAL");
+		// $url .= "vendedor/getAccess";
+		// $headers = array();
+		// $headers[] = "Authorization: Bearer $retorno->token";
+		// $_SESSION['ms_vendedor_access'] = sendPost($url, null, $headers);
+		//--
+
 		print "<script> document.location.href ='index.php';  </script>";
 	}
 	else {

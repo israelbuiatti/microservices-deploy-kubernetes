@@ -25,6 +25,7 @@ public class JwtManager {
 
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("id_vendedor", String.valueOf(user.getIdVendedor()));
+		claims.put("username", user.getUsername());
 		claims.put(SecurityConstants.JWT_ROLE_KEY, roles);
 		
 		String jwt = Jwts.builder()

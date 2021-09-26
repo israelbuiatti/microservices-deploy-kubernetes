@@ -1,5 +1,5 @@
 <?php include("../../cima.php") ?>
-<script src="pages/pedido/PedidoCtrl.js?v=<?= time() ?>"></script>
+<script src="pages/pedidod/PedidoCtrl.js?v=<?= time() ?>"></script>
 <script>
 	var TIPO_PEDIDO = 2;
 </script>
@@ -22,32 +22,14 @@
 	<!-- Main content -->
 	<section class="content">
 
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Pedido</h3>
-				<button class="btn btn-success" ng-click="preparaCadastrar()" style="float:right"> <i class="fa fa-plus"></i> Novo </button>
-			</div>
+		<?php include("cliente.php") ?>
 
-			<div ng-show="state == 'search'">
-				<?php include("../pedido/search.php") ?>
-			</div>
+		<?php include("search.php") ?>
 
-			<div ng-show="state == 'insert' || state == 'update'">
-				<?php include("form.php") ?>
-			</div>
+		<?php include("form.php") ?>
 
-		</div>
+		<?php include("pedidoItem.php") ?>
 
-		<?php include("../pedido/pedidoItem.php") ?>
-
-		<?php include("../pedido/baixa.php") ?>
-
-
-		<script>
-			$('#myModal').on('shown.bs.modal', function() {
-				$('#myInput').focus()
-			})
-		</script>
 
 		<?php include("../pedido/modals.php") ?>
 

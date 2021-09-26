@@ -17,6 +17,14 @@ export default class BaseRepository {
         return result;
     }
 
+    async findByUuid(id) {
+        const result = await this.db().where('uuid', id).first();
+
+        if (!result) throw new AppError("Registro não encontrado!");
+
+        return result;
+    }
+
     async delete(id) {
         let obj = await this.findById(id);
         obj.flg_ativo = false;

@@ -1,4 +1,4 @@
-<div class="col-md-10" style="margin-bottom:20px">
+<div class="col-md-12" style="margin-bottom:20px">
 	<form role="form">
 
 
@@ -41,7 +41,7 @@
 </div>
 
 
-<div class="box-body">
+<div class="box-body table-responsive">
 	<table id="example2" class="table table-bordered table-hover">
 		<thead>
 			<tr>

@@ -1,5 +1,7 @@
 **/docker-compose.yml
 
+venda/frontend/www/vendor
+
 .k8s
 .docker
 .frontend-react

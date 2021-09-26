@@ -14,7 +14,7 @@ export default {
     },
 
     moedaToUS(value) {
-        value = value.toString();
+        value = String(value);
         value = value.split(".").join("");
         value = value.split(",").join(".");
         return parseFloat(value);
