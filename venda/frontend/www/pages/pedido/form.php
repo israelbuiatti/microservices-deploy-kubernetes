@@ -49,7 +49,7 @@
 
 		</div>
 
-		<div class="form-group">
+		<div class="form-group" ng-if="userAccess.admin">
 			<div class="col-sm-4">
 				<label>Vendedor</label>
 				<select class="form-control" ng-options="item.id as item.nome for item in listaVendedor" ng-model="pedido.id_vendedor">

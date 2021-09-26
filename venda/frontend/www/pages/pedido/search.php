@@ -13,6 +13,7 @@
 
 		<div class="box-footer">
 			<button type="submit" class="btn btn-primary" ng-click="buscar()">Buscar</button>
+			<button class="btn btn-success" ng-click="preparaCadastrar()"> <i class="fa fa-plus"></i> Novo </button>
 		</div>
 	</form>
 

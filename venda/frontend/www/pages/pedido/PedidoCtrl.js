@@ -87,7 +87,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			alert('Campo fornecedor obrigatório!');
 			return false;
 		}
-		if ($scope.isEmpty($scope.pedido.id_vendedor)) {
+		if ($scope.isEmpty($scope.pedido.id_vendedor) && $scope.userAccess.admin) {
 			alert('Campo vendedor obrigatório!');
 			return false;
 		}

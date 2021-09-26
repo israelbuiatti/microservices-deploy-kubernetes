@@ -1,4 +1,4 @@
-<div class="box box-info" ng-show="state == 'update'">
+<div class="box box-info" ng-show="state == 'update' && userAccess.admin">
 	<div class="box-header with-border">
 		<h3 class="box-title">Baixa</h3>
 	</div>

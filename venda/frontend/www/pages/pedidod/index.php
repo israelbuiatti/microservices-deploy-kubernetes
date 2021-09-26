@@ -30,6 +30,8 @@
 
 		<?php include("pedidoItem.php") ?>
 
+		<?php include("../pedido/baixa.php") ?>
+
 
 		<?php include("../pedido/modals.php") ?>
 

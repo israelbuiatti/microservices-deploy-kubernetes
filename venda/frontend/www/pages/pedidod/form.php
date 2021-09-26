@@ -1,6 +1,8 @@
 <div class="box box-primary" ng-show="state == 'insert' || state == 'update'">
 	<div class="box-header with-border">
 		<h3 class="box-title">Pedido</h3>
+		<button class="btn" style="float:right; margin-left:10px" ng-click="cancel()" ng-show="state == 'insert' || state == 'update'">Voltar</button>
+		<button class="btn btn-success" ng-click="preparaCadastrar()" style="float:right"> <i class="fa fa-plus"></i> Novo </button>
 	</div>
 
 	<form class="form-horizontal">
