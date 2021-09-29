@@ -12,4 +12,9 @@ export default class CidadeController {
 		return res.json(results);
 	}
 
+	async listDist(req, res) {
+		const results = await this.cidadeService.findDist();
+		return res.json(results);
+	}
+
 }

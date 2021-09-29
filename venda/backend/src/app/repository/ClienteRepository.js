@@ -4,6 +4,12 @@ class ClienteRepository extends BaseRepository {
 
     table = 'cliente';
 
+    async teste() {
+        const results = await this.db().where('validado', false).whereNotNull('cnpj').orderBy('id', 'desc')
+        // .select('id', 'nome_razao')
+        return results;
+    }
+
     async findAll() {
         const results = await this.db().limit(50).orderBy('nome_razao')
         // .select('id', 'nome_razao')

@@ -21,6 +21,10 @@ class ProdutoRepository extends BaseRepository {
         if (produto.id_fornecedor) {
             //query.where('id_fornecedor', produto.id_fornecedor);
         }
+        
+        if (produto.flg_distribuidora) {
+            query.where('flg_distribuidora', true);
+        }
 
         return await query;
 

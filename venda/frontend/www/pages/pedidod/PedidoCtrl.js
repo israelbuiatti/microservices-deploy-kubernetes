@@ -81,7 +81,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	$scope.getCidades = () => {
 
 		loadingOn();
-		$http({ method: 'GET', url: URL_API + 'cidade/' })
+		$http({ method: 'GET', url: URL_API + 'cidade/dist' })
 			.then(
 				(response) => $scope.listaCidades = response.data,
 				(error) => alert(error.data.message)
@@ -122,7 +122,10 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 
 	$scope.consultaCpfCnpj = () => {
 
-		const objConsulta = { cnpj: $scope.cliente.cnpj }
+		const objConsulta = { 
+			cnpj: $scope.cliente.cnpj,
+			flg_distribuidora: true
+		}
 
 		loadingOn();
 		$http({ method: 'POST', url: URL_API + 'cliente/busca', data: objConsulta })
@@ -307,6 +310,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	$scope.pesquisarProduto = () => {
 
 		$scope.buscaModalProduto.id_fornecedor = $scope.pedido.id_fornecedor;
+		$scope.buscaModalProduto.flg_distribuidora = true;
 
 		if ($scope.buscaModalProduto.descricao.length > 2) {
 			loadingOn();

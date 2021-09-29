@@ -12,6 +12,11 @@ class CidadeService {
         return results;
     }
 
+    async findDist() {
+        const results = await this.repository.findDist();
+        return results;
+    }
+
 }
 
 

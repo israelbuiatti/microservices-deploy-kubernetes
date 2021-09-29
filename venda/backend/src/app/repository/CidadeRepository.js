@@ -10,6 +10,12 @@ class CidadeRepository extends BaseRepository {
         return results;
     }
 
+    async findDist() {
+        const results = await this.db().where('flg_distribuidora', true).orderBy('descricao')
+        // .select('id', 'descricao')
+        return results;
+    }
+
 }
 
 
