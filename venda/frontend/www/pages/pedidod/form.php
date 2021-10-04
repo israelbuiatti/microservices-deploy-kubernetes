@@ -33,6 +33,7 @@
 					<label>Prazo</label>
 					<select class="form-control" ng-model="pedido.prazo">
 						<option value=""> - Selecione - </option>
+						<option value="A VISTA"> À VISTA </option>
 						<option value="BOLETO"> 14 Dias </option>
 					</select>
 				</div>
