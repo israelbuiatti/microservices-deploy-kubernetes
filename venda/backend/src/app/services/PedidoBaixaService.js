@@ -31,15 +31,7 @@ class PedidoBaixaService {
             throw new AppError("Valor da baixa não pode ser maior que o valor do pedido!");
         }
 
-        if (pedido.id_tipo_pedido == 1) { //representada
-            pedidoBaixa.comissao_vend = fornecedor.comissao_vend * pedidoBaixa.valor / 100;
-        }
-        if (pedido.id_tipo_pedido == 2) { //distribuidora
-            pedidoBaixa.comissao_vend = fornecedor.comissao_vend_d * pedidoBaixa.valor / 100;
-            pedidoBaixa.comissao_sup_d = fornecedor.comissao_sup_d * pedidoBaixa.valor / 100;
-        }
-
-        
+        pedidoBaixa.comissao_vend = fornecedor.comissao_vend * pedidoBaixa.valor / 100;
 
         if (pedido.id_vendedor_tel) {
             pedidoBaixa.comissao_tel = fornecedor.comissao_tel * pedidoBaixa.valor / 100;
