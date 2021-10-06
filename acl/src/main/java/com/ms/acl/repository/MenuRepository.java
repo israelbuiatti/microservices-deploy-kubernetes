@@ -29,6 +29,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 						"and g.flg_ativo \n" +
 						"and gm.flg_ativo \n" +
 						"and m.flg_ativo \n" +
+					    "and u.flg_ativo \n" +
 						"and cast(u.uuid as text)=:uuid",
 			nativeQuery = true)
 	public List<Menu> getMenuWithPermission(@Param("uuid") String uuid);
