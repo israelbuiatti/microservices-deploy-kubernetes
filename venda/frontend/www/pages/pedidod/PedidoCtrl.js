@@ -240,6 +240,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.cliente.nome_razao = $scope.pedido.nome_razao;
 		$scope.getListaPedidoItem();
 		$scope.getCliente();
+		$scope.getPedidoBaixa();
 	}
 
 
@@ -418,6 +419,75 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			})
 			.finally(() => loadingOff());
 	}
+
+
+
+	//---------------------------------
+	// Baixar
+	//---------------------------------
+
+	$scope.baixar = function () {
+
+		$scope.pedidoBaixaForm.data = $('#data_baixado').val();
+		if ($scope.isEmpty($scope.pedidoBaixaForm.nf)) {
+			alert('Campo NF obrigatório!');
+			return;
+		}
+		if ($scope.isEmpty($scope.pedidoBaixaForm.data)) {
+			alert('Campo Data obrigatório!');
+			return;
+		}
+		if ($scope.isEmpty($scope.pedidoBaixaForm.valor)) {
+			alert('Campo Valor obrigatório!');
+			return;
+		}
+
+		$scope.pedidoBaixaForm.id_pedido = $scope.pedido.id;
+
+		loadingOn();
+
+		$http({ method: 'POST', url: URL_API + 'pedidoBaixa/pedidoBaixaDistribuidora', data: $scope.pedidoBaixaForm })
+			.then((response) => {
+				$scope.getPedidoBaixa();
+				alert('Pedido baixado com sucesso!');
+				$scope.pedidoBaixaForm = {};
+			}, (error) => {
+				alert(error.data.message);
+			})
+			.finally(() => loadingOff());
+
+	}
+
+	$scope.getPedidoBaixa = () => {
+
+		loadingOn();
+		$http({ method: 'GET', url: URL_API + 'pedidoBaixa/' + $scope.pedido.id })
+			.then(
+				(response) => {
+					$scope.pedidoBaixa = response.data;
+					$scope.pedidoBaixa.data = moment($scope.pedidoBaixa.data).add(1, 'days').format('DD/MM/yyyy');
+				},
+				(error) => alert(error.data.message)
+			)
+			.finally(() => loadingOff());
+	}
+
+	$scope.excluirBaixa = () => {
+
+		if (!confirm("Confirma exclusão?")) {
+			return;
+		}
+
+		loadingOn();
+		$http({ method: 'DELETE', url: URL_API + 'pedidoBaixa/' + $scope.pedido.id })
+			.then((response) => {
+				$scope.pedidoBaixa = {};
+			}, (error) => {
+				alert(error.data.message);
+			})
+			.finally(() => loadingOff());
+	}
+
 
 			
   }]);

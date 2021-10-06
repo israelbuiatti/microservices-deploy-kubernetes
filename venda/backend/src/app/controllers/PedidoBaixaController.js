@@ -28,6 +28,20 @@ export default class PedidoBaixaController {
 
 	}
 
+	async pedidoBaixaDistribuidora(req, res) {
+
+		if (!req.user.admin) {
+			throw new AppError("Usuário não autorizado!", 401);
+		}
+
+		const pedidoBaixa = PedidoBaixa.create(req.body);
+
+		const result = await this.pedidoBaixaService.pedidoBaixaDistribuidora(pedidoBaixa);
+
+		return res.status(201).json(result);
+
+	}
+
 	async delete(req, res) {
 
 		if (!req.user.admin) {

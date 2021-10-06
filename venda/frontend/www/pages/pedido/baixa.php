@@ -41,11 +41,32 @@
 				<th class="text-center"> Data </th>
 				<th class="text-center"> Valor </th>
 				<th class="text-center"> </th>
+				<th class="text-center"> </th>
 			</tr>
 			<tr ng-if="pedidoBaixa.nf">
 				<td class="text-center"> {{pedidoBaixa.nf}} </td>
 				<td class="text-center"> {{pedidoBaixa.data}} </td>
-				<td class="text-center"> {{pedidoBaixa.valor | currency:'R$'}} </td>
+				<td class="text-center"> {{pedidoBaixa.valor | currency:'R$ '}} </td>
+				<td>
+					<table>
+						<tr ng-if="pedidoBaixa.comissao_vend">
+							<td style="width:160px; text-align:right">Comissão Vendedor: </td>
+							<td style="padding-left:10px">{{pedidoBaixa.comissao_vend | currency:'R$ '}}</td>
+						</tr>
+						<tr ng-if="pedidoBaixa.comissao_tel">
+							<td style="width:160px; text-align:right">Comissão Telemarketing: </td>
+							<td style="padding-left:10px">{{pedidoBaixa.comissao_vend_d | currency:'R$ '}}</td>
+						</tr>
+						<tr ng-if="pedidoBaixa.comissao_vend_d">
+							<td style="width:160px; text-align:right">Comissão Vendedor: </td>
+							<td style="padding-left:10px">{{pedidoBaixa.comissao_tel | currency:'R$ '}}</td>
+						</tr>
+						<tr ng-if="pedidoBaixa.comissao_sup_d">
+							<td style="width:160px; text-align:right">Comissão Supervisor: </td>
+							<td style="padding-left:10px">{{pedidoBaixa.comissao_sup_d | currency:'R$ '}}</td>
+						</tr>
+					</table>
+				</td>
 				<td>
 					<button type="button" class="btn btn-sm" ng-click="excluirBaixa()" title="Excluir Baixa"><i class="fa fa-times"></i></button>
 				</td>
