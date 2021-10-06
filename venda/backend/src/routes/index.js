@@ -11,7 +11,8 @@ import vendedorRouter from './vendedor'
 import regiaoRouter from './regiao'
 import cidadeRouter from './cidade'
 import comissaoRouter from './comissao'
-import ClienteRepository from '../app/repository/ClienteRepository';
+import manifestoRouter from './manifesto'
+
 
 const routes = Router();
 
@@ -34,7 +35,8 @@ routes.use('/pedidoBaixa', pedidoBaixaRouter);
 routes.use('/regiao', regiaoRouter);
 routes.use('/cidade', cidadeRouter);
 routes.use('/comissao', comissaoRouter);
-routes.use('/comissao', comissaoRouter);
+routes.use('/manifesto', manifestoRouter);
+
 
 
 

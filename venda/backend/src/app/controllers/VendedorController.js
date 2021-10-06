@@ -1,5 +1,6 @@
 import Vendedor from '../models/Vendedor';
 import VendedorService from '../services/VendedorService';
+import AppError from '../exception/AppError';
 
 export default class VendedorController {
 
@@ -41,9 +42,9 @@ export default class VendedorController {
 
 	async busca(req, res) {
 
-		if (!req.user.admin) {
-			throw new AppError("Usuário não autorizado!", 401);
-		}
+		// if (!req.user.admin) {
+		// 	throw new AppError("Usuário não autorizado!", 401);
+		// }
 		
 		const vendedor = Vendedor.create(req.body);
 

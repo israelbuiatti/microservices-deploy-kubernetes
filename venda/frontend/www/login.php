@@ -8,8 +8,8 @@ use Firebase\JWT\JWT;
 
 
 
-$usuario = $_POST['usuario'];
-$senha = $_POST['senha'];
+$usuario = strtolower($_POST['usuario']);
+$senha = strtolower($_POST['senha']);
 
 if (!empty($usuario)) {
 
@@ -27,7 +27,7 @@ if (!empty($usuario)) {
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
 	$result = curl_exec($ch);
 	$retorno = json_decode($result);
-	
+
 	
 
 	if (!empty($retorno->token)) {

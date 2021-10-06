@@ -39,6 +39,29 @@ class PedidoRepository extends BaseRepository {
 
     }
 
+    async buscaPedidoManifesto(pedido) {
+
+        let query = this.db().orderBy('cliente.cidade').orderBy('pedido.id');
+
+        query.join('cliente', 'pedido.id_cliente', '=', 'cliente.id')
+        query.join('cidade', 'cliente.cidade', '=', 'cidade.id')
+        query.join('vendedor', 'pedido.id_vendedor', '=', 'vendedor.id')
+
+        query.select('pedido.*', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'vendedor.nome as vendedor_nome')
+
+        query.where('id_tipo_pedido', 2);
+
+        if (pedido.id_manifesto) {
+            query.where('id_manifesto', pedido.id_manifesto);
+        }
+        else {
+            query.whereNull('id_manifesto');
+        }
+
+        return await query;
+
+    }
+
     async insert(pedido) {
         const result = await this.db()
             .returning('*')

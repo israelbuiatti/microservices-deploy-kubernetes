@@ -268,7 +268,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 					$scope.listaPedido = response.data 
 
 					$scope.listaPedido.forEach(value => {
-						value.data = moment(value.data).add(1, 'days').format('DD/MM/yyyy');
+						value.data = moment(value.data).format('DD/MM/yyyy');
 					})
 
 
@@ -470,7 +470,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			.then(
 				(response) => {
 					$scope.pedidoBaixa = response.data;
-					$scope.pedidoBaixa.data = moment($scope.pedidoBaixa.data).add(1, 'days').format('DD/MM/yyyy');
+					$scope.pedidoBaixa.data = moment($scope.pedidoBaixa.data).format('DD/MM/yyyy');
 				},
 				(error) => alert(error.data.message)
 			)

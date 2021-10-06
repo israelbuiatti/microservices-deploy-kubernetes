@@ -25,6 +25,16 @@ export default class PedidoController {
 
 	}
 
+	async buscaPedidoManifesto(req, res) {
+		const pedido = Pedido.create(req.body);
+		const { id } = req.params;
+		if (id) {
+			pedido.id_manifesto = id;
+		}
+		const result = await this.pedidoService.buscaPedidoManifesto(pedido);
+		return res.json(result);
+	}
+
 	async get(req, res) {
 		const { id } = req.params;
 		const result = await this.pedidoService.findById(id);

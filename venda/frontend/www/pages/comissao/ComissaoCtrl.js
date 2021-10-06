@@ -70,7 +70,7 @@ angular.module('admin').controller('ComissaoCtrl', ["$scope", "$http", function 
 					$scope.total.comissao = 0;
 
 					$scope.listaPedido.forEach(value => {
-						value.data = moment(value.data).add(1, 'days').format('DD/MM/yyyy');
+						value.data = moment(value.data).format('DD/MM/yyyy');
 						value.porcentagem = value.comissao / value.valor_baixado * 100;
 						$scope.total.valor += value.valor;
 						$scope.total.valor_baixado += value.valor_baixado;

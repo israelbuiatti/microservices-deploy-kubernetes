@@ -25,6 +25,17 @@ class PedidoService {
         return await this.repository.busca(pedido);
     }
 
+    async buscaPedidoManifesto(pedido) {
+
+        const pedidos = await this.repository.buscaPedidoManifesto(pedido);
+
+        for(let x=0; x<pedidos.length; x++) {
+            pedidos[x].itens = await this.repositoryPedidoItem.findByPedido(pedidos[x].id);
+        }
+
+        return pedidos;
+    }
+
     async insert(pedido) {
 
         this.validar(pedido);
