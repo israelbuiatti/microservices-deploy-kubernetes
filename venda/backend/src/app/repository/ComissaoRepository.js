@@ -58,13 +58,13 @@ export class ComissaoRepository extends BaseRepository {
         }
 
 
-        if (pedido.id_tipo_pedido == 1) { //distribuidora
+        if (pedido.id_tipo_pedido == 2) { //distribuidora
 
             if (pedido.vendedor.flg_sup_d) {
                 query.where('id_tipo_pedido', 2);
             }
             if (pedido.vendedor.flg_vend_d) {
-                query.whereRaw(`pedido.id_vendedor_tel=${pedido.id_vendedor}`);
+                query.whereRaw(`pedido.id_vendedor=${pedido.id_vendedor}`);
             }
 
         }
