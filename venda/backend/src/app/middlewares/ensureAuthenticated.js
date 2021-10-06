@@ -26,6 +26,11 @@ export default function ensureAuthenticated(request, response, next) {
             request.user.admin = true;
         }
 
+        if (decoded.role.includes('ROLE_SUPERVISOR_D')) {
+            request.user.id_vendedor = 'null';
+            request.user.admin = true;
+        }
+
         return next();
     } catch (error) {
         throw new AppError('Invalid JWT token', 401);
