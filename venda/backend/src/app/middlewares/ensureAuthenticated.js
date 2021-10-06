@@ -1,6 +1,7 @@
 import { verify } from "jsonwebtoken";
 import authConfig from "../config/auth";
 import AppError from "../exception/AppError";
+import LogRepository from "../repository/LogRepository";
 
 export default function ensureAuthenticated(request, response, next) {
 
@@ -30,6 +31,18 @@ export default function ensureAuthenticated(request, response, next) {
             request.user.id_vendedor = 'null';
             request.user.admin = true;
         }
+
+        //LOG
+        const log = {
+            uuid_user: request.user.uuid,
+            method: request.method,
+            originalurl: request.originalUrl,
+            body: request.body
+        }
+
+        const logRepository = new LogRepository();
+        logRepository.insert(log);
+        //--
 
         return next();
     } catch (error) {
