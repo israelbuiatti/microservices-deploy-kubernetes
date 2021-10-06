@@ -40,9 +40,6 @@ class PedidoBaixaService {
         if (pedido.id_vendedor_tel) {
             pedidoBaixa.comissao_tel = fornecedor.comissao_tel * pedidoBaixa.valor / 100;
         }
-        
-
-        this.validarPedidoBaixa(pedidoBaixa);
        
         const result = await this.repository.insert(pedidoBaixa);
 
