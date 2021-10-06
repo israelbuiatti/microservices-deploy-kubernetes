@@ -8,5 +8,6 @@ const comissaoController = new ComissaoController();
 routes.use(ensureAuthenticated);
 
 routes.post('/busca', comissaoController.busca.bind(comissaoController));
+routes.post('/buscad', comissaoController.buscad.bind(comissaoController));
 
 export default routes;

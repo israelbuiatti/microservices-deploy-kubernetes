@@ -12,8 +12,6 @@ class FornecedorRepository extends BaseRepository {
 
     async busca(fornecedor) {
 
-        console.log(fornecedor);
-
         let query = this.db();
 
         if (fornecedor.nome_razao) {

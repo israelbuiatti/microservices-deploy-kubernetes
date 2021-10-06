@@ -15,5 +15,13 @@ export default class ComissaoController {
 
 	}
 
+	async buscad(req, res) {
+
+		const result = await this.comissaoService.buscad(req.body);
+
+		return res.json(result);
+
+	}
+
 
 }

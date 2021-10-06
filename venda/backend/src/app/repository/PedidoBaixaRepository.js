@@ -22,7 +22,6 @@ class PedidoItemRepository extends BaseRepository {
     }
 
     async delete(id) {
-        console.log('delete baixa')
         await this.db().where('id_pedido', id).delete();
     }
 

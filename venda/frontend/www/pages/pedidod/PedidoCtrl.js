@@ -92,8 +92,13 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 
 	$scope.getListaVendedor = () => {
 
+		const data = {
+			flg_vend_d: true,
+			flg_sup_d: true
+		}
+
 		loadingOn();
-		$http({ method: 'GET', url: URL_API + 'vendedor?vendedor=true' })
+		$http({ method: 'POST', url: URL_API + 'vendedor/busca', data: data })
 			.then(
 				(response) => {
 					$scope.listaVendedor = response.data;

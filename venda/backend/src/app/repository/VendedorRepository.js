@@ -27,6 +27,10 @@ class VendedorRepository extends BaseRepository {
             query.whereRaw('LOWER(nome) LIKE ?', '%' + vendedor.nome.toLowerCase() + '%');
         }
 
+        if (vendedor.flg_vend_d && vendedor.flg_sup_d) {
+            query.whereRaw('(flg_vend_d or flg_sup_d)');
+        }
+
         return await query;
 
     }
