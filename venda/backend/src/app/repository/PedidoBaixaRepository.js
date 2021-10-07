@@ -1,6 +1,6 @@
 import BaseRepository from './BaseRepository'
 
-class PedidoItemRepository extends BaseRepository {
+class PedidoBaixaRepository extends BaseRepository {
 
     table = 'pedido_baixa';
 
@@ -21,6 +21,18 @@ class PedidoItemRepository extends BaseRepository {
         return result[0];
     }
 
+    async update(pedido) {
+
+        const { id } = pedido;
+
+        await this.findById(id);
+
+        const result = await this.db()
+            .where({ id })
+            .update(pedido);
+        return result;
+    }
+
     async delete(id) {
         await this.db().where('id_pedido', id).delete();
     }
@@ -28,4 +40,4 @@ class PedidoItemRepository extends BaseRepository {
 }
 
 
-export default PedidoItemRepository;
+export default PedidoBaixaRepository;
