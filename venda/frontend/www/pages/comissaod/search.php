@@ -44,6 +44,10 @@
 			<b>Comissão:</b> {{comissao}}%
 		</p>
 
+		<div ng-if="listaPedido.length" style="margin-bottom: 20px;width: 100%;text-align: right;padding-right: 5px;">
+			Total de registros: {{listaPedido.length}}
+		</div>
+
 		<table id="example2" class="table table-bordered table-hover">
 			<thead>
 				<tr>
