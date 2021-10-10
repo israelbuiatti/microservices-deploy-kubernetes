@@ -9,16 +9,6 @@ class VendedorRepository extends BaseRepository {
         return results;
     }
 
-    async findAllVendedor() {
-        const results = await this.db().where('flg_telemarketing', false).orderBy('nome');
-        return results;
-    }
-
-    async findAllTelemarketing() {
-        const results = await this.db().where('flg_telemarketing', true).orderBy('nome');
-        return results;
-    }
-
     async busca(vendedor) {
 
         let query = this.db().orderBy('nome');
@@ -27,8 +17,16 @@ class VendedorRepository extends BaseRepository {
             query.whereRaw('LOWER(nome) LIKE ?', '%' + vendedor.nome.toLowerCase() + '%');
         }
 
-        if (vendedor.flg_vend_d && vendedor.flg_sup_d) {
+        if (vendedor.flg_vend_d == true && vendedor.flg_sup_d == true) {
             query.whereRaw('(flg_vend_d or flg_sup_d)');
+        }
+        
+        if (vendedor.flg_vend_d == false && vendedor.flg_sup_d == false) {
+            query.whereRaw('(flg_vend_d is false and flg_sup_d is false)');
+        }
+
+        if (vendedor.flg_telemarketing) {
+            query.where('flg_telemarketing', true);
         }
 
         return await query;

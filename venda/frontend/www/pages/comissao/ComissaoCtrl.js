@@ -25,8 +25,13 @@ angular.module('admin').controller('ComissaoCtrl', ["$scope", "$http", function 
 
 	$scope.getListaVendedor = () => {
 
+		const filtro = {
+			flg_vend_d: false,
+			flg_sup_d: false
+		}
+
 		loadingOn();
-		$http({ method: 'GET', url: URL_API + 'vendedor' })
+		$http({ method: 'POST', url: URL_API + 'vendedor/busca', data: filtro })
 			.then(
 				(response) => {
 					$scope.listaVendedor = response.data;

@@ -1,7 +1,7 @@
 import BaseRepository from './BaseRepository'
 import knex from '../../database';
 
-class ManifestoRepository extends BaseRepository {
+class ManifestoItemRepository extends BaseRepository {
 
     table = 'manifesto_item';
 
@@ -57,4 +57,4 @@ class ManifestoRepository extends BaseRepository {
 }
 
 
-export default ManifestoRepository;
+export default ManifestoItemRepository;

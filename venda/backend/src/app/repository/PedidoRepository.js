@@ -35,6 +35,14 @@ class PedidoRepository extends BaseRepository {
             query.where('id_vendedor', pedido.id_vendedor_logado);
         }
 
+        if (pedido.data_inicio) {
+            query.where('data', '>=', pedido.data_inicio);
+        }
+
+        if (pedido.data_fim) {
+            query.where('data', '<=', pedido.data_fim);
+        }
+
         return await query;
 
     }

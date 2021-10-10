@@ -51,22 +51,6 @@ class PedidoBaixaService {
         this.validarPedidoBaixa(pedidoBaixa);
 
         const pedido = await this.repositoryPedido.findById(pedidoBaixa.id_pedido);
-        const pedidoItems = await this.repositoryItemPedido.findByPedido(pedidoBaixa.id_pedido)
-
-        pedidoBaixa.comissao_vend = 0;
-        pedidoBaixa.comissao_sup_d = 0;
-
-        for(let x=0; x<pedidoItems.length; x++) {
-            const item = pedidoItems[x];
-            const valor_total = (item.quantidade * item.valor_unitario).toFixed(2);
-
-            const produto = await this.repositoryProduto.findById(item.id_produto);
-            const fornecedor = await this.repositoryFornecedor.findById(produto.id_fornecedor);
-
-            pedidoBaixa.comissao_vend += fornecedor.comissao_vend_d * valor_total / 100;
-            pedidoBaixa.comissao_sup_d += fornecedor.comissao_sup_d * valor_total / 100;
-
-        }
 
         pedido.valor = pedido.valor.toFixed(2);
 
@@ -74,10 +58,44 @@ class PedidoBaixaService {
             throw new AppError("Valor da baixa precisa ser igual ao valor do pedido!");
         }
 
+        const comissao = await this.calculaComissaoDistribuidora(pedido);
+
+        pedidoBaixa.comissao_vend = comissao.comissao_vend;
+        pedidoBaixa.comissao_sup_d = comissao.comissao_sup_d;
+
         const result = await this.repository.insert(pedidoBaixa);
 
         return result;
     }
+
+    async calculaComissaoDistribuidora(pedido) {
+
+        const pedidoItems = await this.repositoryItemPedido.findByPedido(pedido.id)
+
+        const comissao = {};
+
+        comissao.comissao_vend = 0;
+        comissao.comissao_sup_d = 0;
+
+        for (let x = 0; x < pedidoItems.length; x++) {
+            const item = pedidoItems[x];
+            const valor_total = (item.quantidade * item.valor_unitario).toFixed(2);
+
+            const produto = await this.repositoryProduto.findById(item.id_produto);
+            const fornecedor = await this.repositoryFornecedor.findById(produto.id_fornecedor);
+
+            comissao.comissao_vend += fornecedor.comissao_vend_d * valor_total / 100;
+            comissao.comissao_sup_d += fornecedor.comissao_sup_d * valor_total / 100;
+
+        }
+
+        comissao.comissao_vend = comissao.comissao_vend.toFixed(2);
+        comissao.comissao_sup_d = comissao.comissao_sup_d.toFixed(2);
+
+        return comissao;
+
+    }
+
 
     async delete(id) {
 

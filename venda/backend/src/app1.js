@@ -1,18 +1,16 @@
 import PedidoRepository from './app/repository/PedidoRepository';
 import PedidoBaixaRepository from './app/repository/PedidoBaixaRepository';
-import PedidoItemRepository from './app/repository/PedidoItemRepository';
-import ProdutoRepository from './app/repository/ProdutoRepository';
 import FornecedorRepository from './app/repository/FornecedorRepository';
+import PedidoBaixaService from './app/services/PedidoBaixaService';
 
 
 const pedidoRepository = new PedidoRepository();
 const pedidoBaixaRepository = new PedidoBaixaRepository();
-const pedidoItemRepository = new PedidoItemRepository();
-const produtoRepository = new ProdutoRepository();
 const fornecedorRepository = new FornecedorRepository();
+const pedidoBaixaService = new PedidoBaixaService();
 
 
-async function start() {
+async function checkBaixaDistribuidora() {
 
 	const filtro = {
 		id_tipo_pedido: 2,
@@ -36,7 +34,7 @@ async function start() {
 		pedidoBaixa.comissao_sup_d = pedidoBaixa.comissao_sup_d.toFixed(2);
 			
 
-		const comissao = await calculaComissao(pedido);
+		const comissao = await pedidoBaixaService.calculaComissao(pedido);
 
 		if (pedidoBaixa.comissao_vend != comissao.comissao_vend || pedidoBaixa.comissao_sup_d != comissao.comissao_sup_d) {
 
@@ -45,39 +43,71 @@ async function start() {
 			console.log('pedidoBaixa', pedidoBaixa);
 			console.log('comissao', comissao);
 
-			await pedidoBaixaRepository.update(comissao);
+			// await pedidoBaixaRepository.update(comissao);
+			// return;
 		}
 		
 	}
 
 }
 
-async function calculaComissao(pedido) {
 
-	const pedidoItems = await pedidoItemRepository.findByPedido(pedido.id)
+async function checkBaixaRepresentada() {
 
-	const comissao = {};
+	const filtro = {
+		id_tipo_pedido: 1,
+		id_vendedor_logado: 'null',
+		data_inicio: '2021-09-01',
+		data_fim: '2021-09-30',
+	}
 
-	comissao.comissao_vend = 0;
-	comissao.comissao_sup_d = 0;
+	const pedidos = await pedidoRepository.busca(filtro)
 
-	for (let x = 0; x < pedidoItems.length; x++) {
-		const item = pedidoItems[x];
-		const valor_total = (item.quantidade * item.valor_unitario).toFixed(2);
+	console.log('total', pedidos.length);
 
-		const produto = await produtoRepository.findById(item.id_produto);
-		const fornecedor = await fornecedorRepository.findById(produto.id_fornecedor);
+	for (let x = 0; x < pedidos.length; x++) {
 
-		comissao.comissao_vend += fornecedor.comissao_vend_d * valor_total / 100;
-		comissao.comissao_sup_d += fornecedor.comissao_sup_d * valor_total / 100;
+		const pedido = pedidos[x];
+		console.log(x, pedido.id);
+
+		const pedidoBaixa = await pedidoBaixaRepository.findByPedido(pedido.id);
+		if (!pedidoBaixa) continue;
+		
+		const fornecedor = await fornecedorRepository.findById(pedido.id_fornecedor);
+
+		const comissao = {};
+		let error = false;
+
+		if (pedidoBaixa.comissao_vend) pedidoBaixa.comissao_vend = pedidoBaixa.comissao_vend.toFixed(2);
+		comissao.comissao_vend = fornecedor.comissao_vend * pedidoBaixa.valor / 100;
+		comissao.comissao_vend = comissao.comissao_vend.toFixed(2);
+
+		if (pedidoBaixa.comissao_vend != comissao.comissao_vend) {
+			console.log('pedidoBaixa-vend', pedidoBaixa);
+			console.log('comissao_vend', comissao.comissao_vend);
+			error = true;
+		}
+
+		if (pedido.id_vendedor_tel) {
+			if (pedidoBaixa.comissao_tel) pedidoBaixa.comissao_tel = pedidoBaixa.comissao_tel.toFixed(2);
+			comissao.comissao_tel = fornecedor.comissao_tel * pedidoBaixa.valor / 100;
+			comissao.comissao_tel = comissao.comissao_tel.toFixed(2);
+			if (pedidoBaixa.comissao_tel != comissao.comissao_tel) {
+				console.log('pedidoBaixa-tel', pedidoBaixa);
+				console.log('comissao', comissao);
+				error = true;
+			}
+		}
+		
+		if (error) {
+			comissao.id = pedidoBaixa.id;
+			// await pedidoBaixaRepository.update(comissao);
+		}
 
 	}
 
-	comissao.comissao_vend = comissao.comissao_vend.toFixed(2);
-	comissao.comissao_sup_d = comissao.comissao_sup_d.toFixed(2);
-
-	return comissao;
-
 }
 
-start();
+
+// checkBaixaDistribuidora();
+// checkBaixaRepresentada();

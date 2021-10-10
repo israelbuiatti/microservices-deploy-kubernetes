@@ -53,8 +53,8 @@
 							<td style="width:160px; text-align:right">Comissão Vendedor: </td>
 							<td style="padding-left:10px">{{pedidoBaixa.comissao_vend | currency:'R$ '}}</td>
 						</tr>
-						<tr ng-if="pedidoBaixa.comissao_vend_d">
-							<td style="width:160px; text-align:right">Comissão Vendedor: </td>
+						<tr ng-if="pedidoBaixa.comissao_tel">
+							<td style="width:160px; text-align:right">Comissão Telemarketing: </td>
 							<td style="padding-left:10px">{{pedidoBaixa.comissao_tel | currency:'R$ '}}</td>
 						</tr>
 						<tr ng-if="pedidoBaixa.comissao_sup_d">

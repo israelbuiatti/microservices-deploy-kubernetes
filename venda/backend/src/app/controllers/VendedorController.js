@@ -11,20 +11,8 @@ export default class VendedorController {
 
 	async list(req, res) {
 
-		const telemarketing = req.query.telemarketing;
-		const vendedor = req.query.vendedor;
-
-		let results;
-
-		if (telemarketing) results = await this.vendedorService.findAllTelemarketing();
-		else if (vendedor) results = await this.vendedorService.findAllVendedor();
-		else results = await this.vendedorService.findAll();
+		results = await this.vendedorService.findAll();
 		
-		return res.json(results);
-	}
-
-	async telemarketing(req, res) {
-		const results = await this.vendedorService.findAllTelemarketing();
 		return res.json(results);
 	}
 

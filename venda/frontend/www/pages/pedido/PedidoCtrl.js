@@ -40,8 +40,13 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 
 	$scope.getListaVendedor = () => {
 
+		const filtro = {
+			flg_vend_d: false,
+			flg_sup_d: false
+		}
+
 		loadingOn();
-		$http({ method: 'GET', url: URL_API + 'vendedor?vendedor=true' })
+		$http({ method: 'POST', url: URL_API + 'vendedor/busca', data: filtro })
 			.then(
 				(response) => {
 					$scope.listaVendedor = response.data;
@@ -53,8 +58,14 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 
 	$scope.getListaVendedorTelemarketing = () => {
 
+		const filtro = {
+			flg_vend_d: false,
+			flg_sup_d: false,
+			flg_telemarketing: true
+		}
+
 		loadingOn();
-		$http({ method: 'GET', url: URL_API + 'vendedor?telemarketing=true' })
+		$http({ method: 'POST', url: URL_API + 'vendedor/busca', data: filtro })
 			.then(
 				(response) => {
 					$scope.listaTelemarketing = response.data;
