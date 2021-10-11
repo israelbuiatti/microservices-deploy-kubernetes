@@ -14,7 +14,9 @@ async function checkBaixaDistribuidora() {
 
 	const filtro = {
 		id_tipo_pedido: 2,
-		id_vendedor_logado: 'null'
+		id_vendedor_logado: 'null',
+		data_inicio: '2021-09-01',
+		data_fim: '2021-09-30',
 	}
 
 	const pedidos = await pedidoRepository.busca(filtro)
@@ -34,7 +36,7 @@ async function checkBaixaDistribuidora() {
 		pedidoBaixa.comissao_sup_d = pedidoBaixa.comissao_sup_d.toFixed(2);
 			
 
-		const comissao = await pedidoBaixaService.calculaComissao(pedido);
+		const comissao = await pedidoBaixaService.calculaComissaoDistribuidora(pedido);
 
 		if (pedidoBaixa.comissao_vend != comissao.comissao_vend || pedidoBaixa.comissao_sup_d != comissao.comissao_sup_d) {
 
@@ -109,5 +111,5 @@ async function checkBaixaRepresentada() {
 }
 
 
-// checkBaixaDistribuidora();
+checkBaixaDistribuidora();
 // checkBaixaRepresentada();
