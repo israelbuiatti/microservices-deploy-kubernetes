@@ -41,6 +41,8 @@
 
 		<?php include("baixa.php") ?>
 
+		<?php include("cobranca.php") ?>
+
 
 		<script>
 			$('#myModal').on('shown.bs.modal', function() {

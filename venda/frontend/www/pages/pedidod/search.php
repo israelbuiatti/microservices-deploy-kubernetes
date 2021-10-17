@@ -33,6 +33,7 @@
 					<th class="text-center">Data</th>
 					<th>Cliente</th>
 					<th class="text-center">Cidade</th>
+					<th class="text-center">Vendedor</th>
 					<th class="text-center">Valor</th>
 					<th width="15%"></th>
 				</tr>
@@ -43,6 +44,7 @@
 					<td width="150px" class="text-center">{{item.data}}</td>
 					<td>{{item.nome_razao}}</td>
 					<td class="text-center">{{item.descricao_cidade}}</td>
+					<td class="text-center">{{item.vendedor_nome}}</td>
 					<td class="text-center" width="200px">{{item.valor | currency:'R$ '}}</td>
 					<td class="text-center" width="100px">
 						<button type="button" title="Editar" style="margin-right:5px" class="btn btn-sm" ng-click="preparaAlterar(item)"><i class="fa fa-edit"></i></button>

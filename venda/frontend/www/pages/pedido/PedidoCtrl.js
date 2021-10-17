@@ -19,6 +19,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.baixa = {};
 		$scope.pItem = {};
 		$scope.pedidoBaixa = {};
+		$scope.pedidoCobranca = {};
 		$scope.produto = {};
 		$scope.cliente = {};
 		$scope.itens = [];
@@ -181,8 +182,10 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.cliente.nome_razao = $scope.pedido.nome_razao;
 		$scope.getListaPedidoItem();
 		$scope.getPedidoBaixa();
+		$scope.getListaPedidoCobranca();
 		$scope.carregaFornecedor();
 		$scope.pedidoBaixaForm = {};
+		$scope.pedidoCobrancaForm = {};
 	}
 
 
@@ -448,6 +451,74 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$http({ method: 'DELETE', url: URL_API + 'pedidoBaixa/' + $scope.pedido.id })
 			.then((response) => {
 				$scope.pedidoBaixa = {};
+			}, (error) => {
+				alert(error.data.message);
+			})
+			.finally(() => loadingOff());
+	}
+
+
+
+	//---------------------------------
+	// Cobrança
+	//---------------------------------
+
+	$scope.salvarCobranca = function () {
+
+		$scope.pedidoCobrancaForm.data = $('#data_cobranca').val();
+
+		if ($scope.isEmpty($scope.pedidoCobrancaForm.data)) {
+			alert('Campo Data obrigatório!');
+			return;
+		}
+		if ($scope.isEmpty($scope.pedidoCobrancaForm.valor)) {
+			alert('Campo Valor obrigatório!');
+			return;
+		}
+
+		$scope.pedidoCobrancaForm.id_pedido = $scope.pedido.id;
+
+		loadingOn();
+
+		$http({ method: 'POST', url: URL_API + 'pedidoCobranca/', data: $scope.pedidoCobrancaForm })
+			.then((response) => {
+				$scope.getListaPedidoCobranca();
+				alert('Cobrança cadastrada com sucesso!');
+				$scope.pedidoCobrancaForm = {};
+			}, (error) => {
+				alert(error.data.message);
+			})
+			.finally(() => loadingOff());
+
+	}
+
+	$scope.getListaPedidoCobranca = () => {
+
+		loadingOn();
+		$http({ method: 'GET', url: URL_API + 'pedidoCobranca/' + $scope.pedido.id })
+			.then(
+				(response) => {
+					$scope.listaPedidoCobranca = response.data;
+
+					$scope.listaPedidoCobranca.forEach(value => {
+						value.data = moment(value.data).format('DD/MM/yyyy');
+					})
+				},
+				(error) => alert(error.data.message)
+			)
+			.finally(() => loadingOff());
+	}
+
+	$scope.excluirCobranca = (item) => {
+
+		if (!confirm("Confirma exclusão?")) {
+			return;
+		}
+
+		loadingOn();
+		$http({ method: 'DELETE', url: URL_API + 'pedidoCobranca/' + item.id })
+			.then((response) => {
+				$scope.getListaPedidoCobranca();
 			}, (error) => {
 				alert(error.data.message);
 			})

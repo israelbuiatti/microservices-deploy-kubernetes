@@ -5,6 +5,7 @@ import clienteRouter from './cliente'
 import pedidoRouter from './pedido'
 import pedidoItemRouter from './pedidoItem'
 import pedidoBaixaRouter from './pedidoBaixa'
+import pedidoCobrancaRouter from './pedidoCobranca'
 import produtoRouter from './produto'
 import fornecedorRouter from './fornecedor'
 import vendedorRouter from './vendedor'
@@ -32,6 +33,7 @@ routes.use('/vendedor', vendedorRouter);
 routes.use('/pedido', pedidoRouter);
 routes.use('/pedidoItem', pedidoItemRouter);
 routes.use('/pedidoBaixa', pedidoBaixaRouter);
+routes.use('/pedidoCobranca', pedidoCobrancaRouter);
 routes.use('/regiao', regiaoRouter);
 routes.use('/cidade', cidadeRouter);
 routes.use('/comissao', comissaoRouter);

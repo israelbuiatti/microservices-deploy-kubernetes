@@ -69,7 +69,7 @@
 
 	<div class="col-sm-4">
 		<label>CPF</label>
-		<input class="form-control" type="text" ng-model="vendedor.cpf">
+		<input class="form-control" type="text" ng-model="vendedor.cpf" data-inputmask="'mask': '999.999.999-99'" data-mask="">
 	</div>
 
 </div>
@@ -83,7 +83,7 @@
 			<div class="input-group-addon">
 				<i class="fa fa-phone"></i>
 			</div>
-			<input ng-model="vendedor.tel1" class="form-control">
+			<input ng-model="vendedor.tel1" class="form-control" data-inputmask="'mask': '(99) 99999-9999'" data-mask="">
 		</div>
 	</div>
 
@@ -94,7 +94,7 @@
 			<div class="input-group-addon">
 				<i class="fa fa-phone"></i>
 			</div>
-			<input ng-model="vendedor.tel2" class="form-control">
+			<input ng-model="vendedor.tel2" class="form-control" data-inputmask="'mask': '(99) 99999-9999'" data-mask="">
 		</div>
 	</div>
 

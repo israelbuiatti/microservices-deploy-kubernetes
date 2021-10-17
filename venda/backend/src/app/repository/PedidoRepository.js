@@ -16,8 +16,9 @@ class PedidoRepository extends BaseRepository {
 
         query.join('cliente', 'pedido.id_cliente', '=', 'cliente.id')
         query.join('cidade', 'cliente.cidade', '=', 'cidade.id')
+        query.join('vendedor', 'pedido.id_vendedor', '=', 'vendedor.id')
 
-        query.select('pedido.*', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade')
+        query.select('pedido.*', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'vendedor.nome as vendedor_nome')
 
         if (pedido.id) {
             query.whereRaw('( pedido.id=' + pedido.id+ ' or LOWER(pedido.pedido) LIKE ? )', '%' + pedido.id.toLowerCase() + '%');
