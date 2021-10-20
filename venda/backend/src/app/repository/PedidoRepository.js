@@ -50,7 +50,7 @@ class PedidoRepository extends BaseRepository {
 
     async buscaPedidoManifesto(pedido) {
 
-        let query = this.db().orderBy('cliente.cidade').orderBy('pedido.id');
+        let query = this.db().orderBy('pedido.data');
 
         query.join('cliente', 'pedido.id_cliente', '=', 'cliente.id')
         query.join('cidade', 'cliente.cidade', '=', 'cidade.id')
@@ -59,6 +59,8 @@ class PedidoRepository extends BaseRepository {
         query.select('pedido.*', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'vendedor.nome as vendedor_nome')
 
         query.where('id_tipo_pedido', 2);
+
+        query.whereRaw(' not exists (select * from ms.pedido_baixa where id_pedido=pedido.id and flg_ativo) ');
 
         if (pedido.id_manifesto) {
             query.where('id_manifesto', pedido.id_manifesto);

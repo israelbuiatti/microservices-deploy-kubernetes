@@ -210,8 +210,8 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	$scope.alterar = function () {
 
 		$scope.pedido.data = $('#pedido_data').val();
-
-		if (!validar()) return false;
+		
+		if (!validarPedido()) return false;
 
 		loadingOn();
 		$http({ method: 'PUT', url: URL_API + 'pedido/'+$scope.pedido.id, data: $scope.pedido })
