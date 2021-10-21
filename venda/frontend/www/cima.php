@@ -46,6 +46,7 @@ if (!$_SESSION['ms_admin_usuario']) print "<script language='JavaScript'>locatio
 	<base href="<?= $URL_BASE ?>">
 
 	<script>
+		var URL_BASE = "<?= $URL_BASE ?>"
 		var URL_API = "<?= getenv("URL_API") ?>"
 		var URL_API_CONSULTA_CEP = "<?= getenv("URL_API_CONSULTA_CEP") ?>"
 		var URL_API_ACL = "<?= getenv("URL_API_ACL") ?>"

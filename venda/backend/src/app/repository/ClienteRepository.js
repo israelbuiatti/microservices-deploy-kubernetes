@@ -18,7 +18,7 @@ class ClienteRepository extends BaseRepository {
 
     async busca(cliente) {
 
-        let query = this.db().limit(20);
+        let query = this.db().limit(50);
 
         query.join('cidade', 'cliente.cidade', '=', 'cidade.id')
 

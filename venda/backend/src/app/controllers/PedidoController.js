@@ -26,7 +26,11 @@ export default class PedidoController {
 	}
 
 	async buscaPedidoManifesto(req, res) {
+
 		const pedido = Pedido.create(req.body);
+		
+		if (req.body.order_by) pedido.order_by = req.body.order_by;
+
 		const { id } = req.params;
 		if (id) {
 			pedido.id_manifesto = id;

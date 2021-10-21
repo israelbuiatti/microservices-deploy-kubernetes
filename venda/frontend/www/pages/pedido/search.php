@@ -42,6 +42,7 @@
 				<td class="text-center" width="100px">
 					<button type="button" title="Editar" style="margin-right:5px" class="btn btn-sm" ng-click="preparaAlterar(item)"><i class="fa fa-edit"></i></button>
 					<button type="button" title="Excluir" style="margin-right:5px" class="btn btn-sm" ng-click="excluir(item)"><i class="fa fa-times"></i></button>
+					<button type="button" title="Imprimir" style="margin-right:5px" class="btn btn-sm" ng-click="imprimir(item)"><i class="fa fa-print"></i></button>
 				</td>
 			</tr>
 		</tbody>

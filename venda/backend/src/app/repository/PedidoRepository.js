@@ -12,7 +12,7 @@ class PedidoRepository extends BaseRepository {
     
     async busca(pedido) {
 
-        let query = this.db().orderBy('id', 'desc').limit(20);
+        let query = this.db().orderBy('id', 'desc').limit(50);
 
         query.join('cliente', 'pedido.id_cliente', '=', 'cliente.id')
         query.join('cidade', 'cliente.cidade', '=', 'cidade.id')
@@ -50,13 +50,17 @@ class PedidoRepository extends BaseRepository {
 
     async buscaPedidoManifesto(pedido) {
 
-        let query = this.db().orderBy('pedido.data');
+        let query = this.db();
 
         query.join('cliente', 'pedido.id_cliente', '=', 'cliente.id')
         query.join('cidade', 'cliente.cidade', '=', 'cidade.id')
         query.join('vendedor', 'pedido.id_vendedor', '=', 'vendedor.id')
 
-        query.select('pedido.*', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'vendedor.nome as vendedor_nome')
+        query.select(
+                'pedido.*', 
+                'cliente.nome_razao', 'cliente.endereco', 'cliente.bairro', 'cliente.tel1', 'cliente.tel2', 'cliente.fax',
+                'cidade.descricao as descricao_cidade', 
+                'vendedor.nome as vendedor_nome')
 
         query.where('id_tipo_pedido', 2);
 
@@ -67,6 +71,14 @@ class PedidoRepository extends BaseRepository {
         }
         else {
             query.whereNull('id_manifesto');
+        }
+
+        if (pedido.order_by == 'cidade') {
+            query.orderBy('cidade.descricao');
+            query.orderBy('cliente.bairro');
+        }
+        else {
+            query.orderBy('pedido.data');
         }
 
         return await query;

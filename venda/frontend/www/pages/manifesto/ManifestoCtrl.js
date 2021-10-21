@@ -196,6 +196,10 @@ angular.module('admin').controller('ManifestoCtrl', ["$scope", "$http", function
 
 	}
 
+	$scope.imprimir = (item) => {
+		window.open(URL_BASE + "/pages/manifesto/imprimir.php?id_manifesto=" + item.id + "&token=" + MS_TOKEN, 'name', 'height=500,width=900');
+	}
+
 
 }]);
 

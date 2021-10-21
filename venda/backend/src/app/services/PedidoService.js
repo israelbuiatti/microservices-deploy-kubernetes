@@ -1,5 +1,7 @@
 import PedidoRepository from '../repository/PedidoRepository'
 import PedidoItemRepository from '../repository/PedidoItemRepository'
+import ClienteRepository from '../repository/ClienteRepository'
+import CidadeRepository from '../repository/CidadeRepository'
 import AppError from '../exception/AppError';
 import UTIL from '../utils/util';
 import { returning } from '../../database';
@@ -9,11 +11,17 @@ class PedidoService {
     constructor() {
         this.repository = new PedidoRepository();
         this.repositoryPedidoItem = new PedidoItemRepository();
+        this.clienteRepository = new ClienteRepository();
+        this.cidadeRepository = new CidadeRepository();
     }
 
     async findById(id) {
-        const result = await this.repository.findById(id);
-        return result;
+        const pedido = await this.repository.findById(id);
+        pedido.itens = await this.repositoryPedidoItem.findByPedido(id);
+        pedido.cliente = await this.clienteRepository.findById(pedido.id_cliente);
+        pedido.cliente.cidade = await this.cidadeRepository.findById(pedido.cliente.cidade);
+
+        return pedido;
     }
 
     async findAll() {

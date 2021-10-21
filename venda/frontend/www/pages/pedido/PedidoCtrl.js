@@ -525,6 +525,10 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 			.finally(() => loadingOff());
 	}
 
+	$scope.imprimir = (item) => {
+		window.open(URL_BASE + "/pages/pedido/imprimir.php?id_pedido=" + item.id + "&token=" + MS_TOKEN, 'name', 'height=500,width=900');
+	}
+
 			
   }]);
 
