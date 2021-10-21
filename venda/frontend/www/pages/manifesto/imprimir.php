@@ -8,8 +8,8 @@ include("../../function.php");
 $id_manifesto = $_GET['id_manifesto'];
 $token = $_GET['token'];
 
-$token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1OTBiN2NkOS0yYTQwLTRmOTQtYjJjMS03MTJmNzdlMDQzOGMiLCJleHAiOjE2MzUyMTgwMDUsImlkX3ZlbmRlZG9yIjoibnVsbCIsInJvbGUiOlsiUk9MRV9BRE1JTiJdLCJ1c2VybmFtZSI6ImlzcmFlbCJ9.T4YXgbrqUTz4ubkX8luibcJRV64hoeZicFkJAI00ceyDtl9fTQvnPlPKHWGAFlt9ooZTfQTVX0bzmEY3FUDNLw";
-$id_manifesto = 26;
+// $token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1OTBiN2NkOS0yYTQwLTRmOTQtYjJjMS03MTJmNzdlMDQzOGMiLCJleHAiOjE2MzUyMTgwMDUsImlkX3ZlbmRlZG9yIjoibnVsbCIsInJvbGUiOlsiUk9MRV9BRE1JTiJdLCJ1c2VybmFtZSI6ImlzcmFlbCJ9.T4YXgbrqUTz4ubkX8luibcJRV64hoeZicFkJAI00ceyDtl9fTQvnPlPKHWGAFlt9ooZTfQTVX0bzmEY3FUDNLw";
+// $id_manifesto = 26;
 
 $url = getenv("URL_API_INTERNAL");
 
