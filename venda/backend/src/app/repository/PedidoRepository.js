@@ -62,7 +62,8 @@ class PedidoRepository extends BaseRepository {
                 'cidade.descricao as descricao_cidade', 
                 'vendedor.nome as vendedor_nome')
 
-        query.where('id_tipo_pedido', 2);
+        
+        query.whereRaw(' ( id_tipo_pedido=2 or ( id_tipo_pedido=1 and id_fornecedor=33 ) ) ')
 
         query.whereRaw(' not exists (select * from ms.pedido_baixa where id_pedido=pedido.id and flg_ativo) ');
 
