@@ -36,6 +36,14 @@ class PedidoRepository extends BaseRepository {
             query.where('id_vendedor', pedido.id_vendedor_logado);
         }
 
+        if (pedido.id_vendedor) {
+            query.where('id_vendedor', pedido.id_vendedor);
+        }
+
+        if (pedido.cidade) {
+            query.where('cliente.cidade', pedido.cidade);
+        }
+
         if (pedido.data_inicio) {
             query.where('data', '>=', pedido.data_inicio);
         }
@@ -63,7 +71,7 @@ class PedidoRepository extends BaseRepository {
                 'vendedor.nome as vendedor_nome')
 
         
-        query.whereRaw(' ( id_tipo_pedido=2 or ( id_tipo_pedido=1 and id_fornecedor=33 ) ) ')
+        query.whereRaw(' ( id_tipo_pedido=2 or ( id_tipo_pedido=1 and id_fornecedor in (33, 34) ) ) ')
 
         query.whereRaw(' not exists (select * from ms.pedido_baixa where id_pedido=pedido.id and flg_ativo) ');
 
