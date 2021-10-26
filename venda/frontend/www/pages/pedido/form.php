@@ -18,6 +18,7 @@
 				<select class="form-control" ng-model="pedido.tipopag">
 					<option value=""> - Selecione - </option>
 					<option value="BOLETO"> Boleto </option>
+					<option value="BOLETO"> A VISTA </option>
 					<option value="CHEQUE"> Cheque </option>
 					<option value="PROMISSORIA"> Promissória </option>
 				</select>

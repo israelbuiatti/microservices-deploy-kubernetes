@@ -30,6 +30,10 @@ class PedidoService {
     }
 
     async busca(pedido) {
+
+        pedido.data_inicio = UTIL.reformatDate(pedido.data_inicio);
+        pedido.data_fim = UTIL.reformatDate(pedido.data_fim);
+
         return await this.repository.busca(pedido);
     }
 

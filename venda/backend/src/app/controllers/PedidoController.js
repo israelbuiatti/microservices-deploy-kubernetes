@@ -16,6 +16,9 @@ export default class PedidoController {
 	async busca(req, res) {
 
 		const pedido = Pedido.create(req.body);
+		pedido.cidade = req.body.cidade;		
+		pedido.data_inicio = req.body.data_inicio;
+		pedido.data_fim = req.body.data_fim;
 
 		pedido.id_vendedor_logado = req.user.id_vendedor;
 

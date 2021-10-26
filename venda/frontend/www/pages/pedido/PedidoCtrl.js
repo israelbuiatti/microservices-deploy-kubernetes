@@ -9,6 +9,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.getListaVendedor();
 		$scope.getListaVendedorTelemarketing();
 		$scope.buscar();
+		$scope.getCidades();
 	}
 
 	$scope.reset = () => {
@@ -26,6 +27,18 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.pedidoItem = false;
 		$scope.valor_total = 0.0;
 		$('#datetimepicker4').val('');
+	}
+
+	$scope.getCidades = () => {
+
+		loadingOn();
+		$http({ method: 'GET', url: URL_API + 'cidade/' })
+			.then(
+				(response) => $scope.listaCidades = response.data,
+				(error) => alert(error.data.message)
+			)
+			.finally(() => loadingOff());
+
 	}
 
 	$scope.getListaFornecedor = () => {
@@ -527,6 +540,14 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 
 	$scope.imprimir = (item) => {
 		window.open(URL_BASE + "/pages/pedido/imprimir.php?id_pedido=" + item.id + "&token=" + MS_TOKEN, 'name', 'height=500,width=900');
+	}
+
+	$scope.changeData1 = () => {
+		$scope.busca.data_inicio = $('#data_inicio').val();
+	}
+
+	$scope.changeData2 = () => {
+		$scope.busca.data_fim = $('#data_fim').val();
 	}
 
 			

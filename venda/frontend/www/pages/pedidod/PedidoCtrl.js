@@ -496,6 +496,14 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	$scope.imprimir = (item) => {
 		window.open(URL_BASE + "/pages/pedido/imprimir.php?id_pedido=" + item.id + "&token=" + MS_TOKEN, 'name', 'height=500,width=900');
 	}
+
+	$scope.changeData1 = () => {
+		$scope.busca.data_inicio = $('#data_inicio').val();
+	}
+
+	$scope.changeData2 = () => {
+		$scope.busca.data_fim = $('#data_fim').val();
+	}
 			
   }]);
 

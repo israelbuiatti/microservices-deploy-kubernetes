@@ -9,6 +9,9 @@ export default {
     },
 
     reformatDate(dateStr) {
+        
+        if (!dateStr) return null;
+
         const dArr = dateStr.split("/");
         return dArr[2] + "-" + dArr[1] + "-" + dArr[0];
     },
