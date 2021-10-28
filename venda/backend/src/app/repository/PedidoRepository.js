@@ -71,7 +71,17 @@ class PedidoRepository extends BaseRepository {
                 'vendedor.nome as vendedor_nome')
 
         
-        query.whereRaw(' ( id_tipo_pedido=2 or ( id_tipo_pedido=1 and id_fornecedor in (33, 34) ) ) ')
+        query.whereRaw(` 
+            ( 
+                id_tipo_pedido=2 
+                or 
+                ( id_tipo_pedido=1 and id_fornecedor in (33, 34) )
+                or 
+                ( id_tipo_pedido=1 and cidade.flg_distribuidora )
+            ) 
+        `);
+
+        query.whereRaw(" data>'2021-10-01' ");
 
         query.whereRaw(' not exists (select * from ms.pedido_baixa where id_pedido=pedido.id and flg_ativo) ');
 
