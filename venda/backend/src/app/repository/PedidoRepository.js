@@ -81,7 +81,7 @@ class PedidoRepository extends BaseRepository {
             ) 
         `);
 
-        query.whereRaw(" data>'2021-10-01' ");
+        query.whereRaw(" data>'2021-09-01' ");
 
         query.whereRaw(' not exists (select * from ms.pedido_baixa where id_pedido=pedido.id and flg_ativo) ');
 
