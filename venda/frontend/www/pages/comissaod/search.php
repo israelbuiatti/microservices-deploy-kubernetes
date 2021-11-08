@@ -40,10 +40,6 @@
 
 		<div style="clear:both"></div>
 
-		<p ng-if="comissao" class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-			<b>Comissão:</b> {{comissao}}%
-		</p>
-
 		<div ng-if="listaPedido.length" style="margin-bottom: 20px;width: 100%;text-align: right;padding-right: 5px;">
 			Total de registros: {{listaPedido.length}}
 		</div>
