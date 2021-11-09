@@ -73,8 +73,6 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 	$scope.getListaVendedorTelemarketing = () => {
 
 		const filtro = {
-			flg_vend_d: false,
-			flg_sup_d: false,
 			flg_telemarketing: true
 		}
 
