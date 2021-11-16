@@ -83,13 +83,12 @@ class PedidoRepository extends BaseRepository {
 
         query.whereRaw(" data>'2021-09-01' ");
 
-        query.whereRaw(' not exists (select * from ms.pedido_baixa where id_pedido=pedido.id and flg_ativo) ');
-
         if (pedido.id_manifesto) {
             query.where('id_manifesto', pedido.id_manifesto);
         }
         else {
             query.whereNull('id_manifesto');
+            query.whereRaw(' not exists (select * from ms.pedido_baixa where id_pedido=pedido.id and flg_ativo) ');
         }
 
         if (pedido.order_by == 'cidade') {
