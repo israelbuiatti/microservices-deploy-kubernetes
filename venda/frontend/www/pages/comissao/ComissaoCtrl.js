@@ -25,16 +25,35 @@ angular.module('admin').controller('ComissaoCtrl', ["$scope", "$http", function 
 
 	$scope.getListaVendedor = () => {
 
-		const filtro = {
+		$scope.listaVendedor = [];
+
+		//------
+
+		const filtro1 = {
 			flg_vend_d: false,
 			flg_sup_d: false
 		}
 
 		loadingOn();
-		$http({ method: 'POST', url: URL_API + 'vendedor/busca', data: filtro })
+		$http({ method: 'POST', url: URL_API + 'vendedor/busca', data: filtro1 })
 			.then(
 				(response) => {
-					$scope.listaVendedor = response.data;
+					$scope.listaVendedor = [...$scope.listaVendedor, ...response.data];
+				},
+				(error) => alert(error.data.message)
+			)
+			.finally(() => loadingOff());
+
+		//------
+
+		const filtro2 = {
+			flg_telemarketing: true
+		}
+		
+		$http({ method: 'POST', url: URL_API + 'vendedor/busca', data: filtro2 })
+			.then(
+				(response) => {
+					$scope.listaVendedor = [...$scope.listaVendedor, ...response.data];
 				},
 				(error) => alert(error.data.message)
 			)

@@ -13,7 +13,7 @@ function getRandomArbitrary(min, max) {
 }
 
 const routes = Router();
-routes.use(ensureAuthenticated);
+//routes.use(ensureAuthenticated);
 
 const health = {
     app: "mock-backend",
@@ -45,6 +45,14 @@ routes.use('/upload', async (req, res) => {
     res.send({ responseTime })
 });
 
+
+routes.use('/circuit-breaker/:statusCode/:sleepTime', async (req, res) => {
+    const { statusCode, sleepTime } = req.params;
+    
+    await sleep(sleepTime);
+
+    res.status(statusCode).send({ result: "OK" });
+});
 
 
 
