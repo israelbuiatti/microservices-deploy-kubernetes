@@ -21,13 +21,6 @@ export class ComissaoRepository extends BaseRepository {
             query.select('pedido.id', 'pedido.data', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'pedido.valor', 'pedido_baixa.valor as valor_baixado', 'pedido_baixa.comissao_tel as comissao');
         }
 
-        if (pedido.vendedor.flg_sup_d) {
-            query.select('pedido.id', 'pedido.data', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'pedido.valor', 'pedido_baixa.valor as valor_baixado', 'pedido_baixa.comissao_sup_d as comissao');
-        }
-
-        if (pedido.vendedor.flg_vend_d) {
-            query.select('pedido.id', 'pedido.data', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'pedido.valor', 'pedido_baixa.valor as valor_baixado', 'pedido_baixa.comissao_vend as comissao');
-        }
 
         if (pedido.data1) {
             query.whereRaw(`pedido_baixa.data>='${pedido.data1}'`);
@@ -59,6 +52,14 @@ export class ComissaoRepository extends BaseRepository {
 
 
         if (pedido.id_tipo_pedido == 2) { //distribuidora
+
+            if (pedido.vendedor.flg_sup_d) {
+                query.select('pedido.id', 'pedido.data', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'pedido.valor', 'pedido_baixa.valor as valor_baixado', 'pedido_baixa.comissao_sup_d as comissao');
+            }
+
+            if (pedido.vendedor.flg_vend_d) {
+                query.select('pedido.id', 'pedido.data', 'cliente.nome_razao', 'cidade.descricao as descricao_cidade', 'pedido.valor', 'pedido_baixa.valor as valor_baixado', 'pedido_baixa.comissao_vend as comissao');
+            }
 
             if (pedido.vendedor.flg_sup_d) {
                 query.where('id_tipo_pedido', 2);
