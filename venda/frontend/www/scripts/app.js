@@ -68,3 +68,24 @@ var loadingOff = function() {
 angular.element(document).ready(function () {
     $('body').css('display', 'block');
 });
+
+
+
+//----------------------------------------------------------------
+//DIRETIVA ATIVADA QUANDO FOR PRESSIONADO O ENTER - (ng-enter)
+//-----------------------------------------------------------------
+
+
+angular.module('admin').directive('ngEnter', function () {
+	return function (scope, element, attrs) {
+		element.bind("keydown keypress", function (event) {
+			if (event.which === 13) {
+				scope.$apply(function () {
+					scope.$eval(attrs.ngEnter, { 'event': event });
+				});
+
+				event.preventDefault();
+			}
+		});
+	};
+});

@@ -3,7 +3,7 @@
 		<h3 class="box-title">Itens do Pedido</h3>
 	</div>
 
-	<form class="form-horizontal">
+	<div class="form-horizontal">
 		<div class="box-body">
 
 
@@ -23,8 +23,8 @@
 							<div style="clear:both"></div>
 						</div>
 					</td>
-					<td align="center"> <input class="form-control" ng-model="pItem.quantidade" type="text" style="width:100px"> </td>
-					<td align="center"> <input class="form-control moeda" ng-model="pItem.valor_unitario" type="text" style="width:100px"> </td>
+					<td align="center"> <input class="form-control" ng-model="pItem.quantidade" type="text" style="width:100px" ng-enter="adicionarItem()"> </td>
+					<td align="center"> <input class="form-control moeda" ng-model="pItem.valor_unitario" type="text" style="width:100px" ng-enter="adicionarItem()"> </td>
 					<td class="text-center"> <button type="submit" class="btn btn-primary" ng-click="adicionarItem()">Adicionar</button> </td>
 				</tr>
 				<tr ng-repeat="item in itens">
@@ -48,6 +48,6 @@
 			</table>
 
 		</div>
-	</form>
+	</div>
 
 </div>
