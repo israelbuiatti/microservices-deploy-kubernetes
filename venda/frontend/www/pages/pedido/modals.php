@@ -6,13 +6,21 @@
 				<h4 class="modal-title" id="myModalLabel">Cliente</h4>
 			</div>
 			<div class="modal-body">
-
-				<input type="text" ng-change="buscarModal()" ng-model="buscaModal.nome_razao" class="form-control input-lg" placeholder="Digite o nome do cliente" autofocus autocomplete="off">
-				<hr>
+				<div class="col-sm-12" style="margin-top:20px">
+					<label>Cliente / CNPJ / CPF</label>
+					<input type="text" ng-change="buscarModal()" ng-model="buscaModal.nome_razao" class="form-control input-lg" placeholder="Digite o nome do cliente" autofocus autocomplete="off">
+				</div>
+				<div class="col-sm-12" style="margin-top:20px">
+					<label>Cidade</label>
+					<select class="form-control input-lg" ng-options="item.id as item.descricao for item in listaCidades" ng-model="buscaModal.cidade" ng-change="buscarModal()">
+						<option value=""> - Selecione - </option>
+					</select>
+				</div>
+				<hr style="clear:both">
 				<table class="table">
 					<tr ng-repeat="cliente in clientes">
 						<td width="100px"> <button ng-click="selecionar(cliente)" data-dismiss="modal">selecionar</button> </td>
-						<td> {{cliente.nome_razao}} </td>
+						<td> {{cliente.nome_razao}} <br> <small> {{cliente.cnpj}} | {{cliente.descricao_cidade}} </small></td>
 					</tr>
 				</table>
 
@@ -31,8 +39,7 @@
 				<h4 class="modal-title" id="modalProdutoLabel">Produto</h4>
 			</div>
 			<div class="modal-body">
-
-				<input type="text" ng-change="pesquisarProduto()" ng-model="buscaModalProduto.descricao" class="form-control input-lg" placeholder="Digite o produto" autofocus autocomplete="off">
+				<input type="text" ng-change="pesquisarProduto()" ng-model="buscaModalProduto.descricao" class="form-control input-lg" placeholder="Digite o produto" autocomplete="off">
 				<hr>
 				<table class="table">
 					<tr ng-repeat="produto in produtos">

@@ -19,14 +19,18 @@ $headers = array("Content-Type: application/json", "Authorization: Bearer $token
 
 $json = sendPOST($url . "pedido/buscaPedidoManifesto/" . $id_manifesto, $body, $headers);
 
+
+// echo "<pre>";
+// print_r($url . "manifesto/" . $id_manifesto);
+
 $manifesto = sendGET($url . "manifesto/" . $id_manifesto, $headers);
 $date = new DateTime($manifesto->data);
 $data_manifesto = $date->format('d/m/Y');
 
 
-// echo "<pre>";
-// print_r($manifesto);
-// exit;
+
+//  print_r($manifesto);
+//  exit;
 
 
 
@@ -51,6 +55,7 @@ foreach ($json as $pedido) {
 
 
 $mpdf = new Mpdf\Mpdf([
+	'tempDir' => __DIR__ . '/tmp',
 	'mode' => 'utf-8',
 	'format' => 'A4-L',
 	'orientation' => 'L'

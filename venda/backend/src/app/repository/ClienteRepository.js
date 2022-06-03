@@ -24,8 +24,12 @@ class ClienteRepository extends BaseRepository {
 
         query.select('cliente.*', 'cidade.descricao as descricao_cidade')
 
+        query.orderBy("nome_razao")
+
         if (cliente.nome_razao) {
-            query.whereRaw('LOWER(unaccent(nome_razao)) LIKE unaccent(?)', '%' + cliente.nome_razao.toLowerCase() + '%');
+            query.whereRaw(
+                "( LOWER(unaccent(nome_razao)) LIKE unaccent('%" + cliente.nome_razao.toLowerCase() + "%') or replace(replace(replace(cliente.cnpj, '.', ''), '-', ''), '/', '') LIKE replace(replace(replace('" + cliente.nome_razao + "%', '.', ''), '-', ''), '/', '') ) "                
+            );
         }
 
         if (cliente.cnpj) {
