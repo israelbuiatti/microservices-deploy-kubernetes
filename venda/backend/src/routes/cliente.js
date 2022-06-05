@@ -13,5 +13,6 @@ routes.post('/', clienteController.create.bind(clienteController));
 routes.post('/busca', clienteController.busca.bind(clienteController));
 routes.put('/:id', clienteController.update.bind(clienteController));
 routes.delete('/:id', clienteController.delete.bind(clienteController));
+routes.get('/sintegra/:cnpj', clienteController.sintegra.bind(clienteController));
 
 export default routes;

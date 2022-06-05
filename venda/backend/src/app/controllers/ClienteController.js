@@ -65,4 +65,11 @@ export default class ClienteController {
 	}
 
 
+	async sintegra(req, res) {
+		const { cnpj } = req.params;
+		const result = await this.clienteService.sintegra(cnpj);
+		return res.status(result.status).json(result.data);
+	}
+
+
 }
