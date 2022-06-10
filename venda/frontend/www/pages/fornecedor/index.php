@@ -21,6 +21,7 @@
 		<div class="box box-primary">
 			<div class="box-header with-border">
 				<h3 class="box-title">Fornecedor</h3>
+				<button type="submit" class="btn" ng-click="cancel()" style="float:right; margin-left: 10px" ng-show="state == 'insert' || state == 'update'">Voltar</button>
 				<button class="btn btn-success" ng-click="preparaCadastrar()" style="float:right"> <i class="fa fa-plus"></i> Novo </button>
 			</div>
 
