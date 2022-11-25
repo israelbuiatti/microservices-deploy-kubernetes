@@ -23,6 +23,7 @@ class ManifestoRepository extends BaseRepository {
                     id_manifesto
             ) c1
             join ms.manifesto m on m.id=c1.id_manifesto
+            order by id_manifesto desc
         `);
         return results.rows;
     }
