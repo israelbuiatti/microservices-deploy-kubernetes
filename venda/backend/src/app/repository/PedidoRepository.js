@@ -78,6 +78,8 @@ class PedidoRepository extends BaseRepository {
                 ( id_tipo_pedido=1 and id_fornecedor in (33, 34) )
                 or 
                 ( id_tipo_pedido=1 and cidade.flg_distribuidora )
+                or
+                ( liberar_manifesto=true )
             ) 
         `);
 
