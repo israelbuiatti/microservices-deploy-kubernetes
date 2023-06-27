@@ -153,7 +153,7 @@ $quantidade_geral = 0;
 foreach ($json as $pedido) {
 
 	$quantidade_total = 0;
-	$itens = "";
+	$itens = "Tipo Pagamento: " . $pedido->tipopag . "<br><br>";
 
 	if (!empty($pedido->itens)) {
 		foreach ($pedido->itens as $item) {
