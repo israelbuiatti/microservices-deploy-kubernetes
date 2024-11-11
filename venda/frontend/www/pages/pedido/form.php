@@ -21,6 +21,7 @@
 					<option value="BOLETO"> A VISTA </option>
 					<option value="CHEQUE"> Cheque </option>
 					<option value="PROMISSORIA"> Promissória </option>
+					<option value="Troca"> Troca </option>
 				</select>
 			</div>
 

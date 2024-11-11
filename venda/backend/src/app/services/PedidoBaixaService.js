@@ -30,8 +30,8 @@ class PedidoBaixaService {
 
         pedidoBaixa.valor = pedidoBaixa.valor.toFixed(2);
         pedido.valor = pedido.valor.toFixed(2);
-        
-        if (pedidoBaixa.valor > pedido.valor) {
+
+        if (parseFloat(pedidoBaixa.valor) > parseFloat(pedido.valor)) {
             throw new AppError("Valor da baixa não pode ser maior que o valor do pedido!");
         }
 
