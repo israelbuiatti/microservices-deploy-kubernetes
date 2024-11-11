@@ -1,0 +1,60 @@
+version: '3.7'
+services: 
+
+  postgres:
+    image: postgres:13
+    container_name: 'postgres'
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_DB=
+      - POSTGRES_PASSWORD=
+    volumes:
+      - .postgresql_data:/var/lib/postgresql/data
+
+
+  ms-venda-frontend:
+    container_name: 'ms-venda-frontend'
+    image: israelbuiatti/ms-venda-frontend
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      - URL_API_INTERNAL=http://ms-venda-backend:5000/
+      - URL_API=http://buiatte.com.br:3333/
+      - URL_API_ACL=http://acl:8081
+
+
+  ms-venda-backend:
+    container_name: ms-venda-backend
+    image: israelbuiatti/ms-venda-backend
+    restart: always
+    ports:
+      - "3333:5000"
+    command: npm start
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=
+      - DB_USER=
+      - DB_PASSWORD=
+      - DB_DATABASE=
+      - DB_PORT=
+      - DB_SSL=false
+      - REDIS_HOST=buiatte.com.br
+      - REDIS_PORT=6379
+      - APP_SECRET=abcabc
+      - SINTEGRA_TOKEN=
+
+  acl:
+    image: israelbuiatti/acl
+    container_name: acl
+    restart: always    
+    ports:
+      - "8090:8081"
+    environment:
+      - DATABASE_HOST=
+      - DATABASE_PORT=
+      - DATABASE_DB=
+      - DATABASE_USER=
+      - DATABASE_PASSWORD=
