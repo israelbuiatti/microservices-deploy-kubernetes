@@ -193,7 +193,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.cliente.nome_razao = $scope.pedido.nome_razao;
 		$scope.getListaPedidoItem();
 		$scope.getPedidoBaixa();
-		$scope.getListaPedidoCobranca();
+		//$scope.getListaPedidoCobranca();
 		$scope.carregaFornecedor();
 		$scope.pedidoBaixaForm = {};
 		$scope.pedidoCobrancaForm = {};
@@ -367,7 +367,7 @@ angular.module('admin').controller('PedidoCtrl', ["$scope", "$http", function ($
 		$scope.valor_total = 0.0;
 		
 		$scope.itens.forEach(item => {
-			console.log('item', item);
+			//console.log('item', item);
 			$scope.valor_total += item.quantidade * item.valor_unitario;
 		})
 	}

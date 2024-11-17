@@ -4,7 +4,7 @@ angular.module('admin').controller('ClienteCtrl', ["$scope", "$http", function (
 
 	this.$onInit = () => {
 		$scope.cancel();
-		$scope.getEstados();
+		//$scope.getEstados();
 		$scope.getCidades(); //removar ao refatorar pra pegar cidade/estado do microserviço
 		$scope.getListaRegiao();
 		$scope.buscar();

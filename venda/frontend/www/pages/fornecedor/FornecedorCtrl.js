@@ -4,7 +4,7 @@ angular.module('admin').controller('FornecedorCtrl', ["$scope", "$http", functio
 
 	this.$onInit = () => {
 		$scope.cancel();
-		$scope.getEstados();
+		//$scope.getEstados();
 		$scope.buscar();
 	}
 
