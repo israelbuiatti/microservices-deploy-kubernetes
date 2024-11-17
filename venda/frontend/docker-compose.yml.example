@@ -1,0 +1,14 @@
+version: '3.7'
+services: 
+  ms-venda-frontend:
+    build: .
+    container_name: 'ms-venda-frontend'
+    ports:
+      - 88:80
+    volumes:
+      - ./www:/var/www/html
+    environment:
+      - URL_API_INTERNAL=http://ms-venda-backend:5000/
+      - URL_API=http://buiatte.com.br:3333/
+      - URL_API_ACL=http://acl:8081
+
