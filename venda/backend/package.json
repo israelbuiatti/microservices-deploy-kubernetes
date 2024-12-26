@@ -11,6 +11,11 @@
     "app": "nodemon src/app1.js"
   },
   "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/instrumentation-express": "^0.47.0",
+    "@opentelemetry/instrumentation-http": "^0.52.1",
+    "@opentelemetry/instrumentation-knex": "^0.38.0",
+    "@opentelemetry/sdk-node": "^0.52.1",
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "bull": "^3.11.0",

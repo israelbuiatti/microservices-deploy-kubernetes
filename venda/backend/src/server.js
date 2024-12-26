@@ -1,3 +1,6 @@
+import { initalizeTracing } from './config/tracing.js'
+initalizeTracing()
+
 import express from 'express';
 import 'express-async-errors'
 import routes from './routes';
