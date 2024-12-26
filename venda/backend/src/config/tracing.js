@@ -13,7 +13,7 @@ diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.ERROR)
 const sdk = new NodeSDK({
     serviceName: 'ms-venda-backend',
     traceExporter: new OTLPTraceExporter({
-        url: 'http://localhost:4317',
+        url: 'http://otel-collector:4317',
         compression: 'gzip'
     }),
     instrumentations: [
