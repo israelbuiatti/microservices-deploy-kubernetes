@@ -83,3 +83,14 @@ services:
       - jaeger
     links:
       - jaeger
+
+  nginx:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/htpasswd:/etc/nginx/.htpasswd
+    depends_on:
+      - jaeger
+
